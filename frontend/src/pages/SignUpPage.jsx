@@ -1,10 +1,20 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import { CircleUserRound, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
-import { Link as LinkIcon } from "lucide-react";
+import {
+  CircleUserRound,
+  Eye,
+  EyeOff,
+  Lock,
+  Mail,
+  User,
+  Link as LinkIcon,
+  Loader2,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import AuthImagePattern from "../components/AuthImagePattern";
+
+// ✅ Correct way to import an image asset
+import signup_image from "../assets/signup_image.png";
 
 const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,11 +30,21 @@ const SignUpPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 place-items-center">
-      {/* main box */}
-      <div className="w-full max-w-md space-y-8">
-        {/* logo box */}
+    // ✅ Use background image with Tailwind inline style
+    <div
+      className="min-h-screen grid lg:grid-cols-2 place-items-center"
+      style={{
+        backgroundImage: `url(${signup_image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Signup box */}
+      <div className="w-full max-w-md space-y-6 shadow-lg shadow-gray-600 bg-gray-900/70 p-10 rounded-e-3xl transform transition-transform duration-300 ease-in-out hover:scale-105 outline outline-2 outline-gray-600 ">
+        {/* Logo section */}
         <div className="text-center mb-8">
           <div className="flex flex-col items-center gap-2 group">
             <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -36,12 +56,13 @@ const SignUpPage = () => {
             </p>
           </div>
         </div>
-        {/* input form box */}
+
+        {/* Form inputs */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Full Name */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Full Name</span>
+              <span className="label-text font-medium mb-1">Full Name</span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
@@ -62,7 +83,7 @@ const SignUpPage = () => {
           {/* Email */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Email</span>
+              <span className="label-text font-medium mb-1">Email</span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
@@ -83,7 +104,7 @@ const SignUpPage = () => {
           {/* Password */}
           <div className="form-control">
             <label className="label">
-              <span className="label-text font-medium">Password</span>
+              <span className="label-text font-medium mb-1">Password</span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
@@ -111,7 +132,8 @@ const SignUpPage = () => {
               </button>
             </div>
           </div>
-          {/* Submit button */}
+
+          {/* Submit Button */}
           <button
             type="submit"
             className="btn btn-primary w-full"
@@ -128,9 +150,9 @@ const SignUpPage = () => {
           </button>
         </form>
 
-        {/* Login page link */}
+        {/* Login Redirect */}
         <div className="text-center flex justify-center items-center">
-          <LinkIcon size={20} className="animate-spin"/>
+          <LinkIcon size={20} className="animate-spin" />
           <p className="text-base-content/60 px-1">
             Already have an account?{" "}
             <Link to="/login" className="link link-primary">
@@ -140,8 +162,11 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* Right side */}
-      <AuthImagePattern title="Join our community" subtitle="Connect with friends , share movements and stay in touch with your loved once!"/>
+      {/* Right side: Pattern */}
+      <AuthImagePattern
+        title="Join our community on "
+        subtitle="Connect with friends, share moments and stay in touch with your loved ones with lots of new Amazing Features!"
+      />
     </div>
   );
 };

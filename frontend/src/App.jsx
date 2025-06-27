@@ -66,3 +66,5 @@ export default App;
 // Online status
 // Gmail verification from otp
 // add a info home page and direct user to that page when new login or logout!
+// todo list 
+// notes share on group
