@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser"; // ✅ import
 import messageRoutes from "./routes/message.route.js";
 import cors from "cors";
-
+import otpRoutes from "./routes/otp.route.js";
 import authRoutes from "./routes/auth.route.js";
 import { connectDB } from "./lib/db.js";
 
@@ -23,6 +23,8 @@ app.use(
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/otp", otpRoutes);
+
 
 app.listen(PORT, () => {
   console.log("Server is running on Port:" + PORT);

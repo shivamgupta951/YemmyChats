@@ -3,7 +3,7 @@ import React from "react";
 
 const AuthImagePattern = ({ title, subtitle }) => {
   return (
-    <div className="hidden lg:flex justify-center items-center p-10 bg-base-300 rounded-lg mr-4 border border-gray-800">
+    <div className="hidden lg:flex justify-center items-center p-10 bg-base-300 rounded-lg mr-4 border border-gray-800 mt-8">
       <div className="text-center">
         {/* Pattern box */}
         <div className="flex justify-center m-2">
