@@ -1,7 +1,9 @@
 import React from "react";
 import { THEMES } from "../constants";
 import { useThemeStore } from "../store/useThemeStore";
-import { Send } from "lucide-react";
+import { Send, ArrowLeft, Github } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
 const PREVIEW_MESSAGES = [
   { id: 1, content: "Hey! How's it going?", isSent: false },
@@ -14,10 +16,47 @@ const PREVIEW_MESSAGES = [
 
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
+  const { authUser } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    if (authUser) {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="min-h-screen container mx-auto px-4 pt-20 max-w-5xl">
       <div className="space-y-6">
+        {/* Top bar with GitHub & Back buttons */}
+        <div className="flex justify-between items-center">
+          {/* GitHub Button */}
+          <a
+            href="https://github.com/shivamgupta951"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-200 shadow-inner bg-base-200 text-base-content hover:scale-[1.01] active:scale-95"
+            style={{
+              boxShadow: "inset 4px 4px 8px #c7c7c7, inset -4px -4px 8px #ffffff",
+            }}
+          >
+            Developed by - 
+            <Github size={16} />
+            shivamgupta951
+          </a>
+
+          <button
+            onClick={handleBack}
+            className="btn btn-outline btn-accent btn-sm flex items-center gap-2"
+          >
+            <ArrowLeft size={16} />
+            Back
+          </button>
+        </div>
+
+        {/* Theme section */}
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>
           <p className="text-sm text-base-content/70">
@@ -29,10 +68,9 @@ const SettingsPage = () => {
           {THEMES.map((t) => (
             <button
               key={t}
-              className={`
-                group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors
-                ${theme === t ? "bg-base-200" : "hover:bg-base-200/50"}
-              `}
+              className={`group flex flex-col items-center gap-1.5 p-2 rounded-lg transition-colors ${
+                theme === t ? "bg-base-200" : "hover:bg-base-200/50"
+              }`}
               onClick={() => setTheme(t)}
             >
               <div
@@ -52,11 +90,12 @@ const SettingsPage = () => {
             </button>
           ))}
         </div>
+
+        {/* Preview section */}
         <h3 className="text-lg font-semibold mb-3">Preview</h3>
         <div className="rounded-xl border border-base-300 overflow-hidden bg-base-100 shadow-lg">
           <div className="p-4 bg-base-200">
             <div className="max-w-lg mx-auto">
-              {/* Mock Chat UI */}
               <div className="bg-base-100 rounded-xl shadow-sm overflow-hidden">
                 {/* Chat Header */}
                 <div className="px-4 py-3 border-b border-base-300 bg-base-100">
@@ -81,25 +120,19 @@ const SettingsPage = () => {
                       }`}
                     >
                       <div
-                        className={`
-                          max-w-[80%] rounded-xl p-3 shadow-sm
-                          ${
-                            message.isSent
-                              ? "bg-primary text-primary-content"
-                              : "bg-base-200"
-                          }
-                        `}
+                        className={`max-w-[80%] rounded-xl p-3 shadow-sm ${
+                          message.isSent
+                            ? "bg-primary text-primary-content"
+                            : "bg-base-200"
+                        }`}
                       >
                         <p className="text-sm">{message.content}</p>
                         <p
-                          className={`
-                            text-[10px] mt-1.5
-                            ${
-                              message.isSent
-                                ? "text-primary-content/70"
-                                : "text-base-content/70"
-                            }
-                          `}
+                          className={`text-[10px] mt-1.5 ${
+                            message.isSent
+                              ? "text-primary-content/70"
+                              : "text-base-content/70"
+                          }`}
                         >
                           12:00 PM
                         </p>
