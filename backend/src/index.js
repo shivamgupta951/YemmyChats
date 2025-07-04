@@ -19,10 +19,12 @@ app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 // ✅ Use cookie parser before routes
 app.use(cookieParser());
 
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+
 // ✅ Enable CORS with credentials and specific origin
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend dev origin
+    origin: CLIENT_URL, // frontend dev origin
     credentials: true,
   })
 );
