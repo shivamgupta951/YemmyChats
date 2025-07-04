@@ -6,7 +6,7 @@ import messageRoutes from "./routes/message.route.js";
 import otpRoutes from "./routes/otp.route.js";
 import authRoutes from "./routes/auth.route.js";
 import { connectDB } from "./lib/db.js";
-import { app , server} from "./lib/socket.js";
+import { app, server } from "./lib/socket.js";
 
 dotenv.config();
 
@@ -19,12 +19,24 @@ app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 // ✅ Use cookie parser before routes
 app.use(cookieParser());
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+// ✅ CORS setup to allow multiple origins
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://yemmychats-frontend.onrender.com" // your deployed frontend URL
+];
 
-// ✅ Enable CORS with credentials and specific origin
 app.use(
   cors({
-    origin: CLIENT_URL, // frontend dev origin
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like Postman or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
