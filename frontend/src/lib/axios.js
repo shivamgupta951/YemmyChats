@@ -1,6 +1,9 @@
 import axios from "axios";
 
+// Remove trailing slashes from the backend base URL
+const baseURL = import.meta.env.VITE_API_URL.replace(/\/+$/, "");
+
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:5001/api",
-    withCredentials: true
+  baseURL: `${baseURL}/api`,
+  withCredentials: true,
 });
