@@ -22,7 +22,7 @@ app.use(cookieParser());
 // ✅ CORS setup to allow multiple origins
 app.use(
   cors({
-    origin: "https://yemmychats-frontend.onrender.com",
+    origin: "https://yemmy-chats.onrender.com",
     credentials: true,
   })
 );
