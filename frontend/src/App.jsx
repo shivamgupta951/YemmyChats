@@ -22,7 +22,12 @@ const App = () => {
 
   // Redirect to login if not authenticated
   useEffect(() => {
-    if (!authUser && !isCheckingAuth && location.pathname !== "/login" && location.pathname !== "/signup") {
+    if (
+      !authUser &&
+      !isCheckingAuth &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/signup"
+    ) {
       window.location.href = "/login";
     }
   }, [authUser, isCheckingAuth, location.pathname]);
@@ -53,7 +58,7 @@ const App = () => {
         />
         <Route
           path="/settings"
-          element={authUser ? <SettingsPage /> : <Navigate to="/login" />}
+          element={<SettingsPage />} 
         />
         <Route
           path="/profile"
@@ -66,18 +71,3 @@ const App = () => {
 };
 
 export default App;
-
-// Things to add up ->>
-// Is-Online
-// Bio
-// last-seen
-// group-chat
-// fav-chats
-// story option
-// tagging system
-// background personalised wallpaper for chats
-// Online status
-// Gmail verification from otp
-// add a info home page and direct user to that page when new login or logout!
-// todo list 
-// notes share on group
