@@ -22,7 +22,10 @@ app.use(cookieParser());
 // ✅ CORS setup to allow multiple origins
 app.use(
   cors({
-    origin: "https://yemmy-chats.onrender.com",
+    origin: [
+      "http://localhost:5173",           // ✅ Local development
+      "https://yemmy-chats.onrender.com" // ✅ Production
+    ],
     credentials: true,
   })
 );
