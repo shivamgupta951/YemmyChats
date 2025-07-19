@@ -139,6 +139,19 @@ export const checkAuth = (req, res) => {
   }
 };
 
+// ----------------------- Test Route -----------------------
+export const testRoute = (req, res) => {
+  try {
+    res.status(200).json({
+      status: "ok",
+      message: "Test route working — backend is alive!",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+
 // ----------------------- Send OTP Controller -----------------------
 export const sendOtp = async (req, res) => {
   const { email } = req.body;
