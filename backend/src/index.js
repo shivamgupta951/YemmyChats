@@ -32,6 +32,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/otp", otpRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Socket server running.");
+});
+
 // ✅ Start server and connect DB
 server.listen(PORT, () => {
   console.log("🚀 Server is running on Port:", PORT);

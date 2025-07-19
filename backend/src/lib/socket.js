@@ -7,10 +7,11 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://yemmychats-frontend.onrender.com"
+  "https://yemmy-chats.onrender.com"
 ];
 
 const io = new Server(server, {
+  path: "/socket.io",
   cors: {
     origin: function(origin, callback) {
       if (!origin) return callback(null, true);

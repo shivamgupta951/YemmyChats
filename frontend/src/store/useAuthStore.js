@@ -93,6 +93,7 @@ export const useAuthStore = create((set, get) => ({
     const socket = io(BASE_URL, {
       withCredentials: true,
       transports: ["websocket"],
+      path: "/socket.io",
       query: {
         userId: authUser._id,
       },
