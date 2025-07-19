@@ -61,6 +61,7 @@ const SettingsPage = () => {
                   "inset 4px 4px 8px #c7c7c7, inset -4px -4px 8px #ffffff",
               }}
             >
+              Developed by -
               <Github size={16} />
               KARAN0072177
             </a>
