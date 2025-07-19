@@ -21,16 +21,18 @@ const App = () => {
   }, [checkAuth]);
 
   // Redirect to login if not authenticated
-  useEffect(() => {
-    if (
-      !authUser &&
-      !isCheckingAuth &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/signup"
-    ) {
-      window.location.href = "/login";
-    }
-  }, [authUser, isCheckingAuth, location.pathname]);
+// Redirect to login if not authenticated
+useEffect(() => {
+  if (
+    !authUser &&
+    !isCheckingAuth &&
+    location.pathname !== "/login" &&
+    location.pathname !== "/signup" &&
+    location.pathname !== "/settings" // ✅ Allow /settings
+  ) {
+    window.location.href = "/login";
+  }
+}, [authUser, isCheckingAuth, location.pathname]);
 
   if (isCheckingAuth && !authUser) {
     return (
