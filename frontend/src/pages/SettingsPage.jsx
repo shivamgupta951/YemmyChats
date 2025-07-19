@@ -32,20 +32,39 @@ const SettingsPage = () => {
       <div className="space-y-6">
         {/* Top bar with GitHub & Back buttons */}
         <div className="flex justify-between items-center">
-          {/* GitHub Button */}
-          <a
-            href="https://github.com/shivamgupta951"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-200 shadow-inner bg-base-200 text-base-content hover:scale-[1.01] active:scale-95"
-            style={{
-              boxShadow: "inset 4px 4px 8px #c7c7c7, inset -4px -4px 8px #ffffff",
-            }}
-          >
-            Developed by - 
-            <Github size={16} />
-            shivamgupta951
-          </a>
+          {/* GitHub Buttons */}
+          <div className="flex items-center gap-4">
+            {/* Your GitHub */}
+            <a
+              href="https://github.com/shivamgupta951"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-200 shadow-inner bg-base-200 text-base-content hover:scale-[1.01] active:scale-95"
+              style={{
+                boxShadow:
+                  "inset 4px 4px 8px #c7c7c7, inset -4px -4px 8px #ffffff",
+              }}
+            >
+              Developed by -
+              <Github size={16} />
+              shivamgupta951
+            </a>
+
+            {/* Friend's GitHub - Added below */}
+            <a
+              href="https://github.com/KARAN0072177"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full flex items-center gap-2 text-sm font-semibold transition-all duration-200 shadow-inner bg-base-200 text-base-content hover:scale-[1.01] active:scale-95"
+              style={{
+                boxShadow:
+                  "inset 4px 4px 8px #c7c7c7, inset -4px -4px 8px #ffffff",
+              }}
+            >
+              <Github size={16} />
+              KARAN0072177
+            </a>
+          </div>
 
           <button
             onClick={handleBack}
