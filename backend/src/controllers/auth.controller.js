@@ -7,28 +7,23 @@ import { sendOTP } from "../lib/email.js"; // utility to send email OTP
 
 // ----------------------- Signup Controller -----------------------
 export const signup = async (req, res) => {
-  const { fullName, email, password, otp } = req.body;
+  const { fullName, email, password, otp, username } = req.body;
 
   try {
-    // Check for required fields
-    if (!fullName || !email || !password || !otp) {
+    if (!fullName || !email || !password || !otp || !username) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    // Validate password length
-    if (password.length < 6) {
-      return res.status(400).json({
-        message: "Password must be at least 6 characters",
-      });
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ message: "Username already taken" });
     }
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    // Validate OTP
     const validOtp = await OTP.findOne({ email, otp });
     if (!validOtp) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
@@ -36,18 +31,16 @@ export const signup = async (req, res) => {
 
     await OTP.deleteMany({ email }); // Clean up old OTPs
 
-    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create new user
     const newUser = new User({
       fullName,
       email,
+      username,
       password: hashedPassword,
     });
 
-    // Save and generate token
     await newUser.save();
     generateToken(newUser._id, res);
 
@@ -55,6 +48,7 @@ export const signup = async (req, res) => {
       _id: newUser._id,
       fullName: newUser.fullName,
       email: newUser.email,
+      username: newUser.username,
       profilePic: newUser.profilePic,
     });
   } catch (error) {
@@ -62,19 +56,23 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 // ----------------------- Login Controller -----------------------
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, username, password } = req.body;
 
   try {
-    // Check for user
-    const user = await User.findOne({ email });
+    if ((!email && !username) || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const user = email
+      ? await User.findOne({ email })
+      : await User.findOne({ username });
+
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Compare password
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -86,6 +84,7 @@ export const login = async (req, res) => {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
+      username: user.username,
       profilePic: user.profilePic,
     });
   } catch (error) {

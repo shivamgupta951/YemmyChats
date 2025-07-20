@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import {
   CircleUserRound,
@@ -21,17 +21,22 @@ const SignUpPage = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [sendingOtp, setSendingOtp] = useState(false);
+  const [checkingUsername, setCheckingUsername] = useState(false);
+  const [usernameAvailable, setUsernameAvailable] = useState(null);
 
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
+    username: "",
   });
 
   const { signup, isSigningUp } = useAuthStore();
 
   const validateForm = () => {
     if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.username.trim()) return toast.error("Username is required");
+    if (!usernameAvailable) return toast.error("Username not available");
     if (!formData.email.trim()) return toast.error("Email is required");
     if (!/\S+@\S+\.\S+/.test(formData.email))
       return toast.error("Invalid email format");
@@ -40,6 +45,25 @@ const SignUpPage = () => {
       return toast.error("Password must be at least 6 characters");
 
     return true;
+  };
+
+  const checkUsernameAvailability = async (username) => {
+    if (!username.trim()) {
+      setUsernameAvailable(null);
+      return;
+    }
+
+    setCheckingUsername(true);
+    try {
+      const res = await axiosInstance.get("/auth/check-username", {
+        params: { username },
+      });
+      setUsernameAvailable(res.data.available);
+    } catch (error) {
+      setUsernameAvailable(null);
+    } finally {
+      setCheckingUsername(false);
+    }
   };
 
   const handleSendOtp = async () => {
@@ -77,7 +101,7 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen grid lg:grid-cols-2 place-items-center">
       {/* Signup box */}
-      <div className="w-full max-w-md space-y-1 shadow-lg shadow-gray-600 bg-base-300 p-10 rounded-e-3xl transition-all transform  duration-300 ease-in-out hover:scale-105 outline outline-2 outline-gray-600 mt-10">
+      <div className="w-full max-w-md space-y-1 shadow-lg shadow-gray-600 bg-base-300 p-10 rounded-e-3xl transition-all transform duration-300 ease-in-out hover:scale-105 outline outline-2 outline-gray-600 mt-10">
         <div className="text-center mb-8">
           <div className="flex flex-col items-center gap-1 group">
             <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -110,8 +134,38 @@ const SignUpPage = () => {
             </div>
           </div>
 
+          {/* Username */}
+          <div className="form-control mt-3">
+            <label className="label">
+              <span className="label-text font-medium">Create Username</span>
+            </label>
+            <div className="relative">
+              <User className="absolute left-3 top-3 size-5 text-base-content/40" />
+              <input
+                type="text"
+                className="input input-bordered w-full pl-10"
+                placeholder="your-unique-username"
+                value={formData.username}
+                onChange={(e) => {
+                  setFormData({ ...formData, username: e.target.value });
+                  checkUsernameAvailability(e.target.value);
+                }}
+              />
+            </div>
+            {usernameAvailable === true && (
+              <span className="text-success text-sm mt-1">
+                ✅ Username is available
+              </span>
+            )}
+            {usernameAvailable === false && (
+              <span className="text-error text-sm mt-1">
+                ❌ Username is already taken
+              </span>
+            )}
+          </div>
+
           {/* Email */}
-          <div className="form-control">
+          <div className="form-control mt-3">
             <label className="label">
               <span className="label-text font-medium">Email</span>
             </label>
@@ -130,7 +184,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Password */}
-          <div className="form-control">
+          <div className="form-control mt-3">
             <label className="label">
               <span className="label-text font-medium">Password</span>
             </label>
@@ -160,7 +214,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Send OTP button */}
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 mt-4">
             <button
               type="button"
               className="btn btn-outline btn-sm btn-accent my-2"
