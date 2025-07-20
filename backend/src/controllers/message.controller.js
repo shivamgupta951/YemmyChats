@@ -9,10 +9,8 @@ export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
     const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
-
     res.status(200).json(filteredUsers);
   } catch (error) {
-    console.error("Error in getUsersForSidebar: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -30,20 +28,13 @@ export const getMessages = async (req, res) => {
       ],
     });
 
-    console.log(`🟢 Found ${messages.length} messages between ${myId} and ${userToChatId}`);
-
-    // Attempt to decrypt each message safely
-    const decryptedMessages = messages.map((msg, index) => {
+    const decryptedMessages = messages.map((msg) => {
       try {
-        const decryptedText = msg.text ? decryptMessage(msg.text) : "";
-        console.log(`✅ [${index}] Decrypted text:`, decryptedText);
-
         return {
           ...msg.toObject(),
-          text: decryptedText,
+          text: msg.text ? decryptMessage(msg.text) : "",
         };
       } catch (err) {
-        console.error(`❌ [${index}] Decryption failed for msg._id=${msg._id}:`, err.message);
         return {
           ...msg.toObject(),
           text: "[decryption failed]",
@@ -53,7 +44,6 @@ export const getMessages = async (req, res) => {
 
     res.status(200).json(decryptedMessages);
   } catch (error) {
-    console.log("❌ Error in getMessages controller: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -69,11 +59,9 @@ export const sendMessage = async (req, res) => {
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image);
       imageUrl = uploadResponse.secure_url;
-      console.log("🖼️ Image uploaded to Cloudinary:", imageUrl);
     }
 
     const encryptedText = text ? encryptMessage(text) : "";
-    console.log("🔐 Encrypted text:", encryptedText);
 
     const newMessage = new Message({
       senderId,
@@ -83,22 +71,19 @@ export const sendMessage = async (req, res) => {
     });
 
     await newMessage.save();
-    console.log("💾 Message saved to DB with ID:", newMessage._id);
 
     const decryptedMessage = {
       ...newMessage.toObject(),
-      text: text, // sending original plain text for socket
+      text: text, // original plain text for UI socket delivery
     };
 
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
-      console.log("📡 Emitting to socket:", receiverSocketId);
       io.to(receiverSocketId).emit("newMessage", decryptedMessage);
     }
 
     res.status(201).json(decryptedMessage);
   } catch (error) {
-    console.log("❌ Error in sendMessage controller: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
