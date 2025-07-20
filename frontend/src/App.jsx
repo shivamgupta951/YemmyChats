@@ -10,6 +10,8 @@ import { useAuthStore } from "./store/useAuthStore";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import { useThemeStore } from "./store/useThemeStore";
+import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -21,18 +23,18 @@ const App = () => {
   }, [checkAuth]);
 
   // Redirect to login if not authenticated
-// Redirect to login if not authenticated
-useEffect(() => {
-  if (
-    !authUser &&
-    !isCheckingAuth &&
-    location.pathname !== "/login" &&
-    location.pathname !== "/signup" &&
-    location.pathname !== "/settings" // ✅ Allow /settings
-  ) {
-    window.location.href = "/login";
-  }
-}, [authUser, isCheckingAuth, location.pathname]);
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (
+      !authUser &&
+      !isCheckingAuth &&
+      location.pathname !== "/login" &&
+      location.pathname !== "/signup" &&
+      location.pathname !== "/settings" // ✅ Allow /settings
+    ) {
+      window.location.href = "/login";
+    }
+  }, [authUser, isCheckingAuth, location.pathname]);
 
   if (isCheckingAuth && !authUser) {
     return (
@@ -60,14 +62,19 @@ useEffect(() => {
         />
         <Route
           path="/settings"
-          element={<SettingsPage />} 
+          element={<SettingsPage />}
         />
         <Route
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
+        <Route
+          path="/contact"
+          element={authUser ? <Contact /> : <Navigate to="/login" />}
+        />
       </Routes>
       <Toaster />
+      <Footer />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
-import { Cookie, LogOut, MessageSquare, Settings, User } from "lucide-react";
+import { Cookie, LogOut, Mail, MessageSquare, Settings, User } from "lucide-react";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 
 const Navbar = () => {
@@ -50,6 +50,11 @@ const Navbar = () => {
                 <Link to="/profile" className="btn btn-sm gap-2">
                   <User className="size-5" />
                   <span className="hidden sm:inline">Profile</span>
+                </Link>
+
+                <Link to="/contact" className="btn btn-sm gap-2">
+                  <Mail className="size-5" />
+                  <span className="hidden sm:inline">Contact</span>
                 </Link>
 
                 <button className="flex gap-2 items-center" onClick={logout}>
