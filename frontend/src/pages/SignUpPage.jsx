@@ -101,14 +101,14 @@ const SignUpPage = () => {
   return (
     <div className="min-h-screen grid lg:grid-cols-2 place-items-center">
       {/* Signup box */}
-      <div className="w-full max-w-md space-y-1 shadow-lg shadow-gray-600 bg-base-300 p-10 rounded-e-3xl transition-all transform duration-300 ease-in-out hover:scale-105 outline outline-2 outline-gray-600 mt-10">
-        <div className="text-center mb-8">
+      <div className="w-full max-w-md space-y-1 shadow-lg shadow-gray-600 bg-base-300 p-10 rounded-e-3xl transition-all transform duration-300 ease-in-out hover:scale-95 outline outline-2 outline-gray-600 mt-5">
+        <div className="text-center mb-2">
           <div className="flex flex-col items-center gap-1 group">
             <div className="size-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
               <CircleUserRound className="size-6 text-primary animate-bounce" />
             </div>
-            <h1 className="text-2xl font-bold ">Create Account</h1>
-            <p className="text-base-content/60">
+            <div className="text-lg font-bold ">Create Account</div>
+            <p className="text-base-content/60 text-sm">
               Get started with your free account
             </p>
           </div>
@@ -135,7 +135,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Username */}
-          <div className="form-control mt-3">
+          <div className="form-control mt-1">
             <label className="label">
               <span className="label-text font-medium">Create Username</span>
             </label>
@@ -144,7 +144,7 @@ const SignUpPage = () => {
               <input
                 type="text"
                 className="input input-bordered w-full pl-10"
-                placeholder="your-unique-username"
+                placeholder="username"
                 value={formData.username}
                 onChange={(e) => {
                   setFormData({ ...formData, username: e.target.value });
@@ -165,12 +165,12 @@ const SignUpPage = () => {
           </div>
 
           {/* Email */}
-          <div className="form-control mt-3">
+          <div className="form-control mt-1">
             <label className="label">
               <span className="label-text font-medium">Email</span>
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 size-5 text-base-content/40" />
+              <Mail className="absolute left-3 top-4 size-5 text-base-content/40" />
               <input
                 type="email"
                 className="input input-bordered w-full pl-10"
@@ -184,7 +184,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Password */}
-          <div className="form-control mt-3">
+          <div className="form-control mt-1">
             <label className="label">
               <span className="label-text font-medium">Password</span>
             </label>
@@ -214,10 +214,10 @@ const SignUpPage = () => {
           </div>
 
           {/* Send OTP button */}
-          <div className="flex items-center justify-between gap-2 mt-4">
+          <div className="flex items-center justify-between gap-2 mt-1">
             <button
               type="button"
-              className="btn btn-outline btn-sm btn-accent my-2"
+              className="btn btn-outline btn-sm btn-accent my-1"
               onClick={handleSendOtp}
               disabled={sendingOtp}
             >
@@ -246,7 +246,7 @@ const SignUpPage = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn btn-primary w-full mt-3"
+            className="btn btn-primary w-full mt-1"
             disabled={isSigningUp}
           >
             {isSigningUp ? (
