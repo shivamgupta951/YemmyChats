@@ -196,7 +196,7 @@ const ProfilePage = () => {
         {/* Tabs */}
         <motion.div
           variants={itemVariants}
-          className="flex border-b-4 border-base-200 bg-base-300 p-2"
+          className="mb-2 rounded-xl flex border-b-4 border-base-200 bg-base-300 p-2"
         >
           <button
             className={`pb-3 px-4 font-medium text-sm ${
@@ -244,7 +244,7 @@ const ProfilePage = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="p-8 space-y-6 shadow-md-neumorph bg-base-300"
+          className="rounded-xl p-8 space-y-6 shadow-md-neumorph bg-base-300"
         >
           {/* Profile Tab */}
           {activeTab === "profile" && (

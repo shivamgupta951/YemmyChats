@@ -9,6 +9,8 @@ import { connectDB } from "./lib/db.js";
 import { app, server } from "./lib/socket.js";
 import newsletterRoutes from "./routes/newsletter.route.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import companionRoutes from "./routes/companion.route.js";
+
 
 dotenv.config();
 
@@ -33,6 +35,7 @@ app.use(
 );
 
 // ✅ API routes
+app.use("/api/companion", companionRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/otp", otpRoutes);

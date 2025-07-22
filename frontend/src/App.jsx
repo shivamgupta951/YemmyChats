@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { useThemeStore } from "./store/useThemeStore";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import FamPage from "./pages/FamPage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -71,6 +72,10 @@ const App = () => {
         <Route
           path="/contact"
           element={authUser ? <Contact /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/fam"
+          element={authUser ? <FamPage/> : <Navigate to="/login" />}
         />
       </Routes>
       <Toaster />

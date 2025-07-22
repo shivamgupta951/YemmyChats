@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    companions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );

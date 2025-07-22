@@ -1,14 +1,20 @@
 import { Boxes, MessageSquare } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const NoChatSelected = () => {
+  const navigate = useNavigate();
+  const ManageFriends = ()=> 
+  {
+    navigate("/fam");
+  }
   return (
     <div className="w-full flex flex-1 flex-col bg-base-100/50">
       <div className="p-3 flex justify-end border-b border-base-300">
         <button
           className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
+          onClick={ManageFriends}
         >
           <Boxes size={20}/>
-          Manage Friends
+          Manage Companions
         </button>
       </div>
       <div className="w-full flex flex-1 flex-col items-center justify-center p-16 bg-base-100/50">
