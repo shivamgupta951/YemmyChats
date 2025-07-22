@@ -5,7 +5,6 @@ import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
-
   return (
     <header
       className="bg-base-100 border-b border-base-300 fixed w-full top-0 z-40 
@@ -33,7 +32,7 @@ const Navbar = () => {
           </div>
 
           {/* Center: Project Description */}
-          <div className="text-center text-sm md:italic font-medium mx-auto leading-snug">
+          <div className={`text-center text-sm md:italic font-medium ${authUser? "ml-72" : "mx-auto"} leading-snug`}>
             <span className="font-bold">Yemmy Chats</span> – Created with ❤️ and amazing features<br />
             Share your memories with friends and family ✨
           </div>

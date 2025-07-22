@@ -181,9 +181,9 @@ const ProfilePage = () => {
     >
       <div className="max-w-4xl mx-auto pb-10 ">
         {/* Back Button */}
-        <motion.div variants={itemVariants} className="flex justify-end mb-6">
+        <motion.div variants={itemVariants} className="flex justify-end mb-4">
           <motion.button
-            className="flex items-center gap-2 text-sm text-base-content/70 hover:text-base-content transition-colors"
+            className="flex items-center text-base-content rounded-lg border gap-2 mx-2 mt-2 p-1 text-sm text-base-content/90 hover:bg-base-content hover:text-base-300 transition-colors"
             onClick={() => navigate("/")}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -196,7 +196,7 @@ const ProfilePage = () => {
         {/* Tabs */}
         <motion.div
           variants={itemVariants}
-          className="flex mb-6 border-b border-base-300"
+          className="flex border-b-4 border-base-200 bg-base-300 p-2"
         >
           <button
             className={`pb-3 px-4 font-medium text-sm ${
@@ -244,7 +244,7 @@ const ProfilePage = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="bg-base-100 rounded-xl p-8 space-y-6 shadow-md-neumorph"
+          className="p-8 space-y-6 shadow-md-neumorph bg-base-300"
         >
           {/* Profile Tab */}
           {activeTab === "profile" && (
