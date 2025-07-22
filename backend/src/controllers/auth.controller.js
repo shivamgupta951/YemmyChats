@@ -34,11 +34,18 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // ✅ Fetch common companions to be added by default
+    const commonUsernames = ["YemmyChats", "shivam2004"];
+    const companionsToAdd = await User.find({
+      username: { $in: commonUsernames, $ne: username }, // exclude self if matches
+    });
+
     const newUser = new User({
       fullName,
       email,
       username,
       password: hashedPassword,
+      companions: companionsToAdd.map((u) => u._id),
     });
 
     await newUser.save();
@@ -56,6 +63,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 // ----------------------- Login Controller -----------------------
 export const login = async (req, res) => {
   const { email, username, password } = req.body;

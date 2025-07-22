@@ -183,7 +183,7 @@ const ProfilePage = () => {
         {/* Back Button */}
         <motion.div variants={itemVariants} className="flex justify-end mb-4">
           <motion.button
-            className="flex items-center text-base-content rounded-lg border gap-2 mx-2 mt-2 p-1 text-sm text-base-content/90 hover:bg-base-content hover:text-base-300 transition-colors"
+            className="btn btn-outline btn-accent btn-sm flex items-center gap-2"
             onClick={() => navigate("/")}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

@@ -55,7 +55,7 @@ const Contact = () => {
       <div className="flex justify-end">
         <button
           onClick={() => navigate("/")}
-          className="mb-6 btn btn-outline btn-sm"
+          className="mb-6 btn btn-outline btn-accent btn-sm"
         >
           ← Back
         </button>
