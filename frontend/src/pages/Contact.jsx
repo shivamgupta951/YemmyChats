@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { User, Mail, Phone, MessageSquare, Send, Copy } from "lucide-react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
@@ -9,9 +10,10 @@ const Contact = () => {
     username: "",
     email: "",
     phone: "",
-    message: ""
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,96 +50,107 @@ const Contact = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="mt-12 max-w-2xl mx-auto p-4 sm:p-8"
+      className="max-w-2xl mx-auto px-4 py-20"
     >
-      <div className="bg-gray-50 rounded-xl p-6 sm:p-8 shadow-neumorph">
+      <div className="flex justify-end">
+        <button
+          onClick={() => navigate("/")}
+          className="mb-6 btn btn-outline btn-sm"
+        >
+          ← Back
+        </button>
+      </div>
+
+      <div className="bg-base-200 rounded-xl p-6 md:p-8 shadow">
         <div className="text-center mb-8">
-          <motion.h2 
-            className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1 }}
-          >
-            Get In Touch
-          </motion.h2>
-          <p className="text-gray-500">
+          <h2 className="text-3xl font-bold">Get In Touch</h2>
+          <p className="text-sm text-base-content/60">
             Have questions or feedback? We'd love to hear from you.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <User className="h-5 w-5 text-gray-400" />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text font-medium">Name</span>
             </div>
-            <input
-              type="text"
-              name="username"
-              placeholder="Your Name"
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-700 shadow-neumorph-inset"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="relative">
+              <User className="absolute left-3 top-3 h-5 w-5 text-base-content/50" />
+              <input
+                type="text"
+                name="username"
+                placeholder="Your Name"
+                className="input input-bordered pl-10 w-full"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </label>
 
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Mail className="h-5 w-5 text-gray-400" />
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text font-medium">Email</span>
             </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-700 shadow-neumorph-inset"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="relative">
+              <Mail className="absolute left-3 top-3 h-5 w-5 text-base-content/50" />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                className="input input-bordered pl-10 w-full"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </label>
 
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Phone className="h-5 w-5 text-gray-400" />
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text font-medium">Phone</span>
             </div>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone (optional)"
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-700 shadow-neumorph-inset"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="relative">
+              <Phone className="absolute left-3 top-3 h-5 w-5 text-base-content/50" />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Phone (optional)"
+                className="input input-bordered pl-10 w-full"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </div>
+          </label>
 
-          <div className="relative">
-            <div className="absolute top-3 left-3">
-              <MessageSquare className="h-5 w-5 text-gray-400" />
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text font-medium">Message</span>
             </div>
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-gray-700 shadow-neumorph-inset"
-              rows="5"
-              value={formData.message}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="relative">
+              <MessageSquare className="absolute top-3 left-3 h-5 w-5 text-base-content/50" />
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                className="textarea textarea-bordered pl-10 w-full"
+                rows="5"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </label>
 
           <motion.button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex items-center justify-center px-6 py-3 rounded-lg shadow-neumorph hover:shadow-neumorph-pressed active:shadow-neumorph-inset transition-all duration-200 bg-primary text-white font-medium"
+            className="btn btn-primary w-full"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             {isSubmitting ? (
               <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
+                <span className="loading loading-spinner"></span>
                 Sending...
               </>
             ) : (
@@ -149,53 +162,69 @@ const Contact = () => {
           </motion.button>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {/* Email Card with Copy Functionality */}
-            <motion.div 
-              whileHover={{ y: -2 }}
-              className="p-4 bg-gray-50 rounded-lg shadow-neumorph cursor-pointer"
-              onClick={() => copyToClipboard("support@yourdomain.com")}
-            >
-              <div className="flex items-center justify-center mb-2">
-                <Mail className="h-6 w-6 text-primary mr-2" />
-                <h4 className="font-medium text-gray-700">Email Us</h4>
-                <Copy className="h-4 w-4 ml-2 text-gray-400" />
-              </div>
-              <p className="text-sm text-gray-500 truncate">Click to copy email</p>
-            </motion.div>
+        <div className="mt-8 pt-6 border-t border-base-content/10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Email */}
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="card bg-base-100 shadow cursor-pointer"
+            onClick={() => copyToClipboard("yemmychats@gmail.com")}
+          >
+            <div className="card-body items-center text-center">
+              <Mail className="h-6 w-6 text-primary" />
+              <h4 className="font-semibold">Email Us</h4>
+              <p className="text-xs text-base-content/60">
+                Click to copy email
+              </p>
+            </div>
+          </motion.div>
 
-            {/* Phone Card */}
-            <motion.div 
-              whileHover={{ y: -2 }}
-              className="p-4 bg-gray-50 rounded-lg shadow-neumorph cursor-pointer"
-              onClick={() => copyToClipboard("+1 (555) 123-4567")}
-            >
-              <div className="flex items-center justify-center mb-2">
-                <Phone className="h-6 w-6 text-primary mr-2" />
-                <h4 className="font-medium text-gray-700">Call Us</h4>
-                <Copy className="h-4 w-4 ml-2 text-gray-400" />
-              </div>
-              <p className="text-sm text-gray-500 truncate">Click to copy number</p>
-            </motion.div>
+          {/* Phone */}
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="card bg-base-100 shadow cursor-pointer"
+            onClick={() => copyToClipboard("Phone Number")}
+          >
+            <div className="card-body items-center text-center">
+              <Phone className="h-6 w-6 text-primary" />
+              <h4 className="font-semibold">Call Us</h4>
+              <p className="text-xs text-base-content/60">
+                Click to copy number
+              </p>
+            </div>
+          </motion.div>
 
-            {/* Address Card */}
-            <motion.div 
-              whileHover={{ y: -2 }}
-              className="p-4 bg-gray-50 rounded-lg shadow-neumorph cursor-pointer"
-              onClick={() => copyToClipboard("123 Business St, City")}
-            >
-              <div className="flex items-center justify-center mb-2">
-                <svg className="h-6 w-6 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <h4 className="font-medium text-gray-700">Visit Us</h4>
-                <Copy className="h-4 w-4 ml-2 text-gray-400" />
-              </div>
-              <p className="text-sm text-gray-500 truncate">Click to copy address</p>
-            </motion.div>
-          </div>
+          {/* Address */}
+          <motion.div
+            whileHover={{ y: -2 }}
+            className="card bg-base-100 shadow cursor-pointer"
+            onClick={() => copyToClipboard("YemmyChat-WorkBase 203/34 India")}
+          >
+            <div className="card-body items-center text-center">
+              <svg
+                className="h-6 w-6 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                ></path>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+              </svg>
+              <h4 className="font-semibold">Visit Us</h4>
+              <p className="text-xs text-base-content/60">
+                Click to copy address
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </motion.div>

@@ -30,7 +30,7 @@ const App = () => {
       !isCheckingAuth &&
       location.pathname !== "/login" &&
       location.pathname !== "/signup" &&
-      location.pathname !== "/settings" // ✅ Allow /settings
+      location.pathname !== "/settings"
     ) {
       window.location.href = "/login";
     }
