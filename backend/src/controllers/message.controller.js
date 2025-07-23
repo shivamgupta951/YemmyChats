@@ -74,31 +74,37 @@ export const sendMessage = async (req, res) => {
 
     const decryptedMessage = {
       ...newMessage.toObject(),
-      text: text, // original plain text for UI socket delivery
+      text, // plain for UI
     };
 
+    // Send over socket
     const receiverSocketId = getReceiverSocketId(receiverId);
     if (receiverSocketId) {
       io.to(receiverSocketId).emit("newMessage", decryptedMessage);
     }
 
-    // 📧 EMAIL NOTIFICATION LOGIC (Step 3)
+    // 📧 EMAIL NOTIFICATION LOGIC
     try {
       const recipient = await User.findById(receiverId);
+      const sender = await User.findById(senderId);
+      const isProfessionalSender = ["shivam2004", "YemmyChats"].includes(sender.username);
       const notify = recipient.notificationPreferences?.get(senderId.toString());
 
-      if (notify) {
-        const sender = await User.findById(senderId);
+      // ✅ If user opted in or it's a professional account
+      if (notify || isProfessionalSender) {
         const { sendMessageEmail } = await import("../utils/sendMail.js");
+        console.log(`📧 Sending message email to ${recipient.email} from ${sender.fullName}`);
 
         await sendMessageEmail(recipient.email, {
           senderName: sender.fullName,
           senderPic: sender.profilePic,
           message: text,
         });
+      } else {
+        console.log("ℹ️ Email not sent - user has disabled notifications.");
       }
     } catch (emailErr) {
-      console.error("Email notification failed:", emailErr.message);
+      console.error("❌ Email notification failed:", emailErr);
     }
 
     res.status(201).json(decryptedMessage);

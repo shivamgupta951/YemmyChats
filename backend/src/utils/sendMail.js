@@ -1,17 +1,17 @@
 import nodemailer from "nodemailer";
 
-// ✅ OTP and generic mail sender (unchanged)
+// ✅ Chat & OTP transporter setup
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.MAIL_USER, // use MAIL_USER consistently
-    pass: process.env.MAIL_PASS,
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
   },
 });
 
 const sendMail = ({ to, subject, html }) => {
   return transporter.sendMail({
-    from: `"Yemmy-Chats Team" <${process.env.MAIL_USER}>`,
+    from: `"Yemmy-Chats Team" <${process.env.GMAIL_USER}>`,
     to,
     subject,
     html,
@@ -21,9 +21,9 @@ const sendMail = ({ to, subject, html }) => {
 export default sendMail;
 
 // ✅ Chat Message Notification Mail
-export const sendMessageEmail = async (to, { senderName, senderPic, message }) => {
+export const sendMessageEmail = async (to, { senderName, senderPic }) => {
   const mailOptions = {
-    from: `"Yemmy Chats" <${process.env.MAIL_USER}>`,
+    from: `"Yemmy Chats" <${process.env.GMAIL_USER}>`,
     to,
     subject: `📨 New message from ${senderName}`,
     html: `
@@ -35,11 +35,17 @@ export const sendMessageEmail = async (to, { senderName, senderPic, message }) =
             style="width:60px;height:60px;border-radius:50%;border:2px solid #4f46e5;" 
           />
         </div>
-        <p><strong>${senderName}</strong> says:</p>
-        <blockquote style="background:#fff;padding:15px;border-left:4px solid #4f46e5;font-style:italic;margin:10px 0;">
-          ${message}
-        </blockquote>
-        <p style="color:#6b7280;">Login to <strong>YemmyChats</strong> to reply.</p>
+        <p><strong>${senderName}</strong> sent you a message.</p>
+        
+        <p style="margin: 20px 0; padding: 15px; background-color: #fffbe6; border-left: 4px solid #facc15; color: #444;">
+          🔐 For privacy reasons, the message content is not included in this email.
+        </p>
+
+        <a href="https://yemmy-chats.onrender.com/login" 
+           style="display:inline-block;margin-top:15px;padding:10px 20px;background:#4f46e5;color:white;text-decoration:none;border-radius:5px;">
+          🔓 Login to view message
+        </a>
+
         <hr style="margin-top:20px;" />
         <footer style="font-size:0.8rem;color:#9ca3af;">© 2025 YemmyChats. All rights reserved.</footer>
       </div>
