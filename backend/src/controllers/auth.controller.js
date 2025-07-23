@@ -4,6 +4,8 @@ import { generateToken } from "../lib/utils.js";
 import cloudinary from "../lib/cloudinary.js";
 import { OTP } from "../models/otp.model.js";
 import { sendOTP } from "../lib/email.js"; // utility to send email OTP
+import { syncGlobalCompanions } from "../utils/companionSync.js";
+
 
 // ----------------------- Signup Controller -----------------------
 export const signup = async (req, res) => {
@@ -49,6 +51,7 @@ export const signup = async (req, res) => {
     });
 
     await newUser.save();
+    await syncGlobalCompanions();
     generateToken(newUser._id, res);
 
     res.status(201).json({
