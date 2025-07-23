@@ -8,7 +8,9 @@ import { encryptMessage, decryptMessage } from "../lib/encrypt.js";
 export const getUsersForSidebar = async (req, res) => {
   try {
     const loggedInUserId = req.user._id;
-    const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+    const filteredUsers = await User.find({
+      _id: { $ne: loggedInUserId },
+    }).select("-password");
     res.status(200).json(filteredUsers);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
@@ -83,30 +85,38 @@ export const sendMessage = async (req, res) => {
       io.to(receiverSocketId).emit("newMessage", decryptedMessage);
     }
 
-    // 📧 EMAIL NOTIFICATION LOGIC
+    // 📧 EMAIL NOTIFICATION LOGIC (All users managed by preference)
     try {
       const recipient = await User.findById(receiverId);
       const sender = await User.findById(senderId);
-      const isProfessionalSender = ["shivam2004", "YemmyChats"].includes(sender.username);
-      const notify = recipient.notificationPreferences?.get(senderId.toString());
 
-      // ✅ If user opted in or it's a professional account
-      if (notify || isProfessionalSender) {
+      const senderIsPro = ["shivam2004", "YemmyChats"].includes(
+        sender.username
+      );
+      const recipientIsPro = ["shivam2004", "YemmyChats"].includes(
+        recipient.username
+      );
+
+      const notify =
+        senderIsPro ||
+        recipientIsPro ||
+        recipient.notificationPreferences?.get(senderId.toString());
+
+      if (notify) {
         const { sendMessageEmail } = await import("../utils/sendMail.js");
-        console.log(`📧 Sending message email to ${recipient.email} from ${sender.fullName}`);
+
+        console.log(
+          `📧 Sending message email to ${recipient.email} from ${sender.fullName}`
+        );
 
         await sendMessageEmail(recipient.email, {
           senderName: sender.fullName,
           senderPic: sender.profilePic,
-          message: text,
         });
-      } else {
-        console.log("ℹ️ Email not sent - user has disabled notifications.");
       }
     } catch (emailErr) {
-      console.error("❌ Email notification failed:", emailErr);
+      console.error("Email notification failed:", emailErr.message);
     }
-
     res.status(201).json(decryptedMessage);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
