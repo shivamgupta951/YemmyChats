@@ -13,6 +13,7 @@ import { useThemeStore } from "./store/useThemeStore";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import FamPage from "./pages/FamPage";
+import AboutPage from "./pages/AboutPage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -27,9 +28,7 @@ const App = () => {
     if (
       !authUser &&
       !isCheckingAuth &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/signup" &&
-      location.pathname !== "/settings"
+      !["/login", "/signup", "/settings", "/about"].includes(location.pathname)
     ) {
       window.location.href = "/login";
     }
@@ -59,10 +58,8 @@ const App = () => {
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
-        <Route
-          path="/settings"
-          element={<SettingsPage />}
-        />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
