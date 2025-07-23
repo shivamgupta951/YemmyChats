@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
-import { Image, Send, X, Loader2 } from "lucide-react";
+import { Image, Send, X, Loader2, Smile, Drama } from "lucide-react";
 import toast from "react-hot-toast";
+import EmojiPicker from "emoji-picker-react";
 
 const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [showEmojis, setShowEmojis] = useState(false);
   const [sending, setSending] = useState(false);
   const fileInputRef = useRef(null);
   const { sendMessage } = useChatStore();
@@ -33,28 +35,27 @@ const MessageInput = () => {
     e.preventDefault();
     if (!text.trim() && !imagePreview) return;
 
-    setSending(true); // Disable further clicks
-
+    setSending(true);
     try {
-      await sendMessage({
-        text: text.trim(),
-        image: imagePreview,
-      });
-
-      toast.success("Message sent!")
-      // Clear form
+      await sendMessage({ text: text.trim(), image: imagePreview });
+      toast.success("Message sent!");
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (error) {
       console.error("Failed to send message:", error);
     } finally {
-      setSending(false); // Re-enable send button
+      setSending(false);
     }
   };
 
+  const handleEmojiClick = (emojiData) => {
+    setText((prev) => prev + emojiData.emoji);
+    setShowEmojis(false); // Optional: hide picker after selection
+  };
+
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full relative">
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
@@ -75,7 +76,6 @@ const MessageInput = () => {
         </div>
       )}
 
-      {/* Optional: Sending Message Indicator */}
       {sending && (
         <div className="mb-2 text-sm text-zinc-400 flex items-center gap-2">
           <Loader2 className="animate-spin size-4" />
@@ -84,7 +84,24 @@ const MessageInput = () => {
       )}
 
       <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2">
+        <div className="flex-1 flex gap-2 relative">
+          {/* Emoji Button */}
+          <div className="flex justify-center items-center border px-2 rounded-xl relative">
+            <button
+              type="button"
+              onClick={() => setShowEmojis((prev) => !prev)}
+              disabled={sending}
+            >
+              <Drama size={22} />
+            </button>
+            {showEmojis && (
+              <div className="absolute bottom-12 left-0 z-50">
+                <EmojiPicker onEmojiClick={handleEmojiClick} theme="dark" />
+              </div>
+            )}
+          </div>
+
+          {/* Message Input */}
           <input
             type="text"
             className="w-full input input-bordered rounded-lg input-sm sm:input-md"
@@ -93,6 +110,8 @@ const MessageInput = () => {
             onChange={(e) => setText(e.target.value)}
             disabled={sending}
           />
+
+          {/* Image Picker */}
           <input
             type="file"
             accept="image/*"
@@ -101,7 +120,6 @@ const MessageInput = () => {
             onChange={handleImageChange}
             disabled={sending}
           />
-
           <button
             type="button"
             className={`hidden sm:flex btn btn-circle ${
@@ -114,6 +132,7 @@ const MessageInput = () => {
           </button>
         </div>
 
+        {/* Send Button */}
         <button
           type="submit"
           className={`btn btn-sm btn-circle ${sending ? "btn-disabled" : ""}`}
