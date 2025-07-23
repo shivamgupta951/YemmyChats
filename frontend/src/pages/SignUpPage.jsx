@@ -273,7 +273,7 @@ const SignUpPage = () => {
 
       <AuthImagePattern
         title="Join our community on"
-        subtitle="Connect with friends, share moments and stay in touch with your loved ones with lots of new Amazing Features!"
+        subtitle="Connect with Companions, share moments and stay in touch with your loved ones with lots of new Amazing Features!"
       />
     </div>
   );

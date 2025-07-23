@@ -31,22 +31,16 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold text-base-content">YemmyChats</h3>
             <p className="text-base-content/70">
-              A secure, fast, and modern platform to connect with your friends in real time.
+              A secure, fast, and modern platform to connect with your Companions in real time.
             </p>
             <div className="flex space-x-4">
-              <a href="https://twitter.com" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="https://facebook.com" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="https://instagram.com" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/shivam_pvt951?igsh=MWw5ejl6cGlwamxpbg==" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="https://linkedin.com" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
+              <a href="https://www.linkedin.com/in/shivam-gupta-199203339?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a href="https://github.com" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
+              <a href="https://github.com/shivamgupta951" target="_blank" className="text-base-content/60 hover:text-primary transition-colors">
                 <Github className="h-5 w-5" />
               </a>
             </div>
@@ -62,10 +56,7 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-base-content">Navigation</h3>
             <ul className="space-y-2">
               <li><a href="/" className="text-base-content/70 hover:text-primary">Home</a></li>
-              <li><a href="/about" className="text-base-content/70 hover:text-primary">About</a></li>
-              <li><a href="/features" className="text-base-content/70 hover:text-primary">Features</a></li>
               <li><a href="/contact" className="text-base-content/70 hover:text-primary">Contact</a></li>
-              <li><a href="/newsletter" className="text-base-content/70 hover:text-primary">Newsletter</a></li>
             </ul>
           </motion.div>
 
@@ -78,11 +69,11 @@ const Footer = () => {
           >
             <h3 className="text-lg font-semibold text-base-content">Features</h3>
             <ul className="space-y-2">
-              <li><a href="/messages" className="text-base-content/70 hover:text-primary">Real-Time Messaging</a></li>
-              <li><a href="/profile" className="text-base-content/70 hover:text-primary">Profile Management</a></li>
-              <li><a href="/security" className="text-base-content/70 hover:text-primary">Security Settings</a></li>
-              <li><a href="/admin" className="text-base-content/70 hover:text-primary">Admin Panel</a></li>
-              <li><a href="/set-username" className="text-base-content/70 hover:text-primary">Username Setup</a></li>
+              <li><div  className="text-base-content/70 hover:text-primary">Real-Time Messaging</div></li>
+              <li><div  className="text-base-content/70 hover:text-primary">Profile Management</div></li>
+              <li><div  className="text-base-content/70 hover:text-primary">Security Settings</div></li>
+              <li><div  className="text-base-content/70 hover:text-primary">Admin Panel</div></li>
+              <li><div  className="text-base-content/70 hover:text-primary">Username Setup</div></li>
             </ul>
           </motion.div>
 
@@ -97,15 +88,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <Mail className="h-5 w-5 text-base-content/60 mt-0.5" />
-                <span className="text-base-content/70">support@yemmychats.com</span>
+                <span className="text-base-content/70">yemmychats@gmail.com</span>
               </div>
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-base-content/60 mt-0.5" />
-                <span className="text-base-content/70">+91 98765 43210</span>
+                <span className="text-base-content/70">+91 93357 91524</span>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-base-content/60 mt-0.5" />
-                <span className="text-base-content/70">Mumbai, India</span>
+                <span className="text-base-content/70">Noida, India</span>
               </div>
             </div>
           </motion.div>
