@@ -82,6 +82,25 @@ export const sendMessage = async (req, res) => {
       io.to(receiverSocketId).emit("newMessage", decryptedMessage);
     }
 
+    // 📧 EMAIL NOTIFICATION LOGIC (Step 3)
+    try {
+      const recipient = await User.findById(receiverId);
+      const notify = recipient.notificationPreferences?.get(senderId.toString());
+
+      if (notify) {
+        const sender = await User.findById(senderId);
+        const { sendMessageEmail } = await import("../utils/sendMail.js");
+
+        await sendMessageEmail(recipient.email, {
+          senderName: sender.fullName,
+          senderPic: sender.profilePic,
+          message: text,
+        });
+      }
+    } catch (emailErr) {
+      console.error("Email notification failed:", emailErr.message);
+    }
+
     res.status(201).json(decryptedMessage);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });

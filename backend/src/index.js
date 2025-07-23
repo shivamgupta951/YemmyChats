@@ -10,7 +10,7 @@ import { app, server } from "./lib/socket.js";
 import newsletterRoutes from "./routes/newsletter.route.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import companionRoutes from "./routes/companion.route.js";
-
+import notificationRoutes from "./routes/notification.route.js"; // ✅ Step 6 - Added
 
 dotenv.config();
 
@@ -41,6 +41,7 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/notifications", notificationRoutes); // ✅ Step 6 - Registered route
 
 app.get("/", (req, res) => {
   res.send("Socket server running.");

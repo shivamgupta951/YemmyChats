@@ -171,9 +171,9 @@ const LoginPage = () => {
             <LinkIcon size={20} className="animate-spin mx-1" />
             <div className="text-center">
               <p className="text-base-content/60">
-                Don&apos;t have an account?{" "}
+                Don&apos;t have an Yemmy account?{" "}
                 <Link to="/signup" className="link link-primary">
-                  Create account
+                  Create Account
                 </Link>
               </p>
             </div>

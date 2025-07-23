@@ -23,8 +23,6 @@ const App = () => {
     checkAuth();
   }, [checkAuth]);
 
-  // Redirect to login if not authenticated
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (
       !authUser &&
@@ -75,11 +73,12 @@ const App = () => {
         />
         <Route
           path="/fam"
-          element={authUser ? <FamPage/> : <Navigate to="/login" />}
+          element={authUser ? <FamPage /> : <Navigate to="/login" />}
         />
       </Routes>
       <Toaster />
-      <Footer />
+
+      {location.pathname !== "/" && <Footer />}
     </div>
   );
 };

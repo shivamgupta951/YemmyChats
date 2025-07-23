@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    notificationPreferences: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
     companions: [
       {
         type: mongoose.Schema.Types.ObjectId,
