@@ -176,7 +176,7 @@ const ProfilePage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen pt-16 px-4 bg-base-100"
+      className="min-h-screen pt-28 px-4 bg-base-100"
       style={{ "--primary": themeColor }}
     >
       <div className="max-w-4xl mx-auto pb-10 ">

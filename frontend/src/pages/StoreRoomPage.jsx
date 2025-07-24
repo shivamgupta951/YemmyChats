@@ -107,7 +107,7 @@ const StoreRoomPage = () => {
   }
 
   return (
-    <div className="p-5 max-w-5xl mx-auto space-y-8 my-16">
+    <div className="p-5 max-w-5xl mx-auto space-y-8 my-28">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold flex text-accent">
           <Boxes className="mt-1 mx-2" /> Chat-StoreRoom with{" "}

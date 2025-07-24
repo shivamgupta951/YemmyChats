@@ -66,7 +66,7 @@ function FamPage() {
   };
 
   return (
-    <div className="min-h-screen pt-20 px-4 bg-base-300">
+    <div className="min-h-screen pt-28 px-4 bg-base-300">
       {/* Confirmation Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50">
