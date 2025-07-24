@@ -8,14 +8,17 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import storeRoomImage from "../assets/storeRoomImage.png";
+import chatboxImage from "../assets/chatboxImage.png";
 
 const featureList = [
   "Secure Real-time Messaging",
   "Encrypted Image Sharing",
   "Companion & Family Chat Groups",
   "Theme Customization",
-  "Email Notifications",
+  "Email Notifications (Optional)",
   "Emoji Support",
+  "Chat StoreRoom (Save text, files, and images)",
 ];
 
 const pricingPlans = [
@@ -88,6 +91,29 @@ const AboutPage = () => {
             </motion.li>
           ))}
         </ul>
+
+        {/* Screenshots */}
+        <div className="grid md:grid-cols-2 gap-6 pt-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="bg-base-200 p-3 rounded-lg shadow"
+          >
+            <h3 className="text-lg font-semibold mb-2">🗂️ StoreRoom Screenshot</h3>
+            <img src={storeRoomImage} alt="StoreRoom" className="rounded transform transition-transform duration-700 ease-in-out hover:scale-90" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="bg-base-200 p-3 rounded-lg shadow"
+          >
+            <h3 className="text-lg font-semibold mb-2">💬 Chat Interface</h3>
+            <img src={chatboxImage} alt="Chat Interface" className="rounded transform transition-transform duration-700 ease-in-out hover:scale-90" />
+          </motion.div>
+        </div>
       </motion.section>
 
       {/* Professional Account Pricing */}
@@ -100,7 +126,7 @@ const AboutPage = () => {
       >
         <h2 className="text-2xl font-semibold flex items-center gap-2">
           <Zap className="text-yellow-500" /> Professional Accounts
-          <div className="label-text flex justify-center items-center border mt-1 px-2 rounded-xl bg-accent text-base-300">Comming Soon</div>
+          <div className="label-text flex justify-center items-center border mt-1 px-2 rounded-xl bg-accent text-base-300">Coming Soon</div>
         </h2>
         <p className="text-zinc-500">
           Unlock exclusive features with a professional account:

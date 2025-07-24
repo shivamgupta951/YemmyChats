@@ -4,13 +4,15 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import messageRoutes from "./routes/message.route.js";
 import otpRoutes from "./routes/otp.route.js";
+import storeRoomRoutes from "./routes/storeroom.route.js";
 import authRoutes from "./routes/auth.route.js";
 import { connectDB } from "./lib/db.js";
 import { app, server } from "./lib/socket.js";
 import newsletterRoutes from "./routes/newsletter.route.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import userRoutes from "./routes/user.route.js";
 import companionRoutes from "./routes/companion.route.js";
-import notificationRoutes from "./routes/notification.route.js"; // ✅ Step 6 - Added
+import notificationRoutes from "./routes/notification.route.js"; 
 
 dotenv.config();
 
@@ -36,12 +38,14 @@ app.use(
 
 // ✅ API routes
 app.use("/api/companion", companionRoutes);
+app.use("/api/storeroom", storeRoomRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/newsletter", newsletterRoutes);
+app.use("/api/users", userRoutes); // 👈 Add this line
 app.use("/api/contact", contactRoutes);
-app.use("/api/notifications", notificationRoutes); // ✅ Step 6 - Registered route
+app.use("/api/notifications", notificationRoutes); 
 
 app.get("/", (req, res) => {
   res.send("Socket server running.");

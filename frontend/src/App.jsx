@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import FamPage from "./pages/FamPage";
 import AboutPage from "./pages/AboutPage";
+import StoreRoomPage from "./pages/StoreRoomPage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -57,6 +58,10 @@ const App = () => {
         <Route
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/storeroom/:userId"
+          element={authUser ? <StoreRoomPage/> : <Navigate to="/login" />}
         />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/about" element={<AboutPage />} />

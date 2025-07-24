@@ -1,20 +1,24 @@
-import { Check, X } from "lucide-react";
+import { Check, Dock, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import { axiosInstance } from "../lib/axios";
+import { useNavigate } from "react-router-dom";
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const [notificationsOn, setNotificationsOn] = useState(false);
   const [locked, setLocked] = useState(false); // 🔒 Track lock status
+  const navigate = useNavigate();
 
   // 🟢 Fetch current notification status and lock status
   const fetchStatus = async () => {
     try {
-      const res = await axiosInstance.get(`/notifications/status/${selectedUser._id}`);
+      const res = await axiosInstance.get(
+        `/notifications/status/${selectedUser._id}`
+      );
       setNotificationsOn(res.data.enabled);
       setLocked(res.data.locked); // 🔒 update lock state
     } catch {
@@ -72,7 +76,16 @@ const ChatHeader = () => {
 
         {/* Right Section - Notification Toggle + Close */}
         <div className="flex items-center gap-3 relative">
-          <div className="label-text">Notifications</div>
+          <button
+            onClick={() => navigate(`/storeroom/${selectedUser._id}`)}
+            className="label-text transform transition-transform duration-700 ease-in-out hover:scale-90 flex items-center gap-1 mx-2"
+          >
+            <Dock size={16} />
+            Chat-StoreRoom
+          </button>
+          <div className="label-text transform transition-transform duration-700 ease-in-out hover:scale-90">
+            Email-Notifications
+          </div>
 
           <button
             onClick={toggleNotification}
@@ -81,11 +94,7 @@ const ChatHeader = () => {
               locked ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {notificationsOn ? (
-              <Check className="text-success" />
-            ) : (
-              ""
-            )}
+            {notificationsOn ? <Check className="text-success" /> : ""}
           </button>
 
           {/* 🔒 Overlay div to handle clicks on disabled button */}
