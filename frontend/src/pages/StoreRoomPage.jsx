@@ -170,7 +170,7 @@ const StoreRoomPage = () => {
       </div>
 
       {/* Files Section */}
-      <div>
+      <div className="bg-base-300 p-4 border rounded-lg pb-10">
         <h3 className="text-xl font-semibold mb-4">📁 Saved Items</h3>
         {loading ? (
           <p className="text-center">Loading...</p>
