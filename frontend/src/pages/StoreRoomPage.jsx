@@ -130,11 +130,11 @@ const StoreRoomPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="bg-base-200 shadow-md px-6 py-4 rounded-xl"
           >
-            <h2 className="text-2xl font-bold text-base-content flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-base-content flex items-center justify-center gap-2">
               <Boxes className="text-indigo-500" size={24} />
               Chat-StoreRoom with {selectedUser.fullName}
             </h2>
-            <p className="text-sm text-base-content/70 mt-1">
+            <p className="text-sm text-base-content/70 mt-1 flex justify-center items-center">
               Save and store anything with your chatmates and access it any time!
             </p>
           </motion.div>

@@ -50,10 +50,10 @@ export const getMessages = async (req, res) => {
   }
 };
 
-// Send Message (ENCRYPTED)
+// Send Message (ENCRYPTED + Supports image + audio)
 export const sendMessage = async (req, res) => {
   try {
-    const { text, image } = req.body;
+    const { text, image, audio } = req.body;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
@@ -63,6 +63,7 @@ export const sendMessage = async (req, res) => {
       imageUrl = uploadResponse.secure_url;
     }
 
+    // `audio` is already uploaded on frontend and sent as URL in req.body
     const encryptedText = text ? encryptMessage(text) : "";
 
     const newMessage = new Message({
@@ -70,13 +71,14 @@ export const sendMessage = async (req, res) => {
       receiverId,
       text: encryptedText,
       image: imageUrl,
+      audio: audio || null,
     });
 
     await newMessage.save();
 
     const decryptedMessage = {
       ...newMessage.toObject(),
-      text, // plain for UI
+      text, // plain for frontend UI
     };
 
     // Send over socket
@@ -90,12 +92,8 @@ export const sendMessage = async (req, res) => {
       const recipient = await User.findById(receiverId);
       const sender = await User.findById(senderId);
 
-      const senderIsPro = ["shivam2004", "YemmyChats"].includes(
-        sender.username
-      );
-      const recipientIsPro = ["shivam2004", "YemmyChats"].includes(
-        recipient.username
-      );
+      const senderIsPro = ["shivam2004", "YemmyChats"].includes(sender.username);
+      const recipientIsPro = ["shivam2004", "YemmyChats"].includes(recipient.username);
 
       const notify =
         senderIsPro ||
@@ -105,9 +103,7 @@ export const sendMessage = async (req, res) => {
       if (notify) {
         const { sendMessageEmail } = await import("../utils/sendMail.js");
 
-        console.log(
-          `📧 Sending message email to ${recipient.email} from ${sender.fullName}`
-        );
+        console.log(`📧 Sending message email to ${recipient.email} from ${sender.fullName}`);
 
         await sendMessageEmail(recipient.email, {
           senderName: sender.fullName,
@@ -117,8 +113,10 @@ export const sendMessage = async (req, res) => {
     } catch (emailErr) {
       console.error("Email notification failed:", emailErr.message);
     }
+
     res.status(201).json(decryptedMessage);
   } catch (error) {
+    console.error("Send message error:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
