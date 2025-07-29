@@ -32,7 +32,7 @@ const Navbar = () => {
           </div>
 
           {/* Center: Project Description */}
-          <div className={`text-center text-sm md:italic font-medium ${authUser? "ml-72" : "mx-auto"} leading-snug`}>
+          <div className={`text-center text-sm md:italic font-medium leading-snug`}>
             <span className="font-bold">Yemmy Chats</span> – Created with ❤️ and amazing features<br />
             Share your memories with Companions and Family ✨
           </div>
