@@ -210,7 +210,10 @@ const MessageInput = () => {
           {/* Emoji Picker */}
           <div
             className="flex justify-center items-center border px-3 rounded-xl relative cursor-pointer"
-            onClick={() => setShowEmojis((prev) => !prev)}
+            onClick={() => {
+              setShowEmojis((prev) => !prev);
+              setShowRecorders(false);
+            }}
           >
             <Drama size={22} />
             {showEmojis && (
@@ -221,11 +224,15 @@ const MessageInput = () => {
           </div>
 
           {/* 🎤 Recorder UI */}
-          <div
-            className="flex justify-center items-center relative"
-            onClick={() => setShowRecorders((prev) => !prev)}
-          >
-            <button className="border flex justify-center items-center rounded-xl p-3">
+          <div className="flex justify-center items-center relative">
+            <button
+              type="button"
+              onClick={() => {
+                setShowRecorders((prev) => !prev);
+                setShowEmojis(false);
+              }}
+              className="border flex justify-center items-center rounded-xl p-3"
+            >
               <Mic size={20} />
             </button>
             {showRecorders && !recordedAudio && (
