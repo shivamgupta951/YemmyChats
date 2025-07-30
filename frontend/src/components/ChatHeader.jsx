@@ -93,19 +93,21 @@ const ChatHeader = () => {
             <div className="bg-base-300 border border-base-200 rounded-lg p-4 shadow-md w-64">
               <div className="flex items-center justify-center border-b pb-2 my-2">
                 <BrickWallFire className="mr-2" />
-                <span className="text-xl font-semibold">Profile Info</span>
+                <span className="text-xl font-semibold">Profile Card</span>
               </div>
               <div className="flex justify-center items-center my-5">
                 <div className="avatar">
-                  <div className="size-20 rounded-full">
+                  <div className="size-24 rounded-full outline outline-2 outline-error">
                     <img
                       src={selectedUser.profilePic || "/avatar.png"}
                       alt={selectedUser.fullName}
                     />
                   </div>
                 </div>
-                <div className="mx-7 underline font-bold">
-                  {selectedUser.fullName}
+                <div className="mx-3">
+                  <div className="underline font-bold flex justify-center items-center text-xl">
+                    {selectedUser.fullName}
+                  </div>
                 </div>
               </div>
 
