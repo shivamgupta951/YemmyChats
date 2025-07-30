@@ -119,7 +119,7 @@ const StoreRoomPage = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/")}
-            className="btn btn-sm btn-outline flex items-center gap-2 px-4 py-2 rounded-lg"
+            className="btn btn-sm btn-outline flex items-center gap-2 px-4 rounded-lg"
           >
             <ChevronLeft size={20} />
             Back to Chat

@@ -1,33 +1,38 @@
-import { Check, Dock, X } from "lucide-react";
+import {
+  BrickWallFire,
+  Check,
+  CircleDotDashed,
+  Cookie,
+  Dock,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import { axiosInstance } from "../lib/axios";
+import { formatTimeAgo } from "../lib/formatTimeAgo"; // ✅
 import { useNavigate } from "react-router-dom";
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const [notificationsOn, setNotificationsOn] = useState(false);
-  const [locked, setLocked] = useState(false); // 🔒 Track lock status
+  const [locked, setLocked] = useState(false);
   const navigate = useNavigate();
 
-  // 🟢 Fetch current notification status and lock status
   const fetchStatus = async () => {
     try {
       const res = await axiosInstance.get(
         `/notifications/status/${selectedUser._id}`
       );
       setNotificationsOn(res.data.enabled);
-      setLocked(res.data.locked); // 🔒 update lock state
+      setLocked(res.data.locked);
     } catch {
       setNotificationsOn(false);
       setLocked(false);
     }
   };
-
-  // 🟢 Toggle email notification (disabled if locked)
   const toggleNotification = async () => {
     if (locked) {
       toast.error("🔒 This user's notifications cannot be disabled.");
@@ -48,16 +53,22 @@ const ChatHeader = () => {
       toast.error("Failed to toggle notification");
     }
   };
-
   useEffect(() => {
     if (selectedUser?._id) fetchStatus();
   }, [selectedUser]);
+
+  const companionCount = selectedUser?.companions?.length || 0;
+  const isOnline = onlineUsers.includes(selectedUser._id);
+  const lastSeen =
+    !isOnline && selectedUser?.lastSeen
+      ? formatTimeAgo(selectedUser.lastSeen)
+      : null;
 
   return (
     <div className="p-2.5 border-b border-base-300">
       <div className="flex items-center justify-between">
         {/* Left Section - Avatar & Name */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 group relative">
           <div className="avatar">
             <div className="size-10 rounded-full">
               <img
@@ -69,12 +80,65 @@ const ChatHeader = () => {
           <div>
             <h3 className="font-medium">{selectedUser.fullName}</h3>
             <p className="text-sm text-base-content/70">
-              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+              {isOnline
+                ? "Online"
+                : selectedUser?.lastSeen
+                ? `Last seen ${formatTimeAgo(selectedUser.lastSeen)}`
+                : "Last seen ~ Unknown"}
             </p>
+          </div>
+
+          {/* Hover Profile Card */}
+          <div className="absolute left-10 top-12 z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto">
+            <div className="bg-base-300 border border-base-200 rounded-lg p-4 shadow-md w-64">
+              <div className="flex items-center justify-center border-b pb-2 my-2">
+                <BrickWallFire className="mr-2" />
+                <span className="text-xl font-semibold">Profile Info</span>
+              </div>
+              <div className="flex justify-center items-center my-5">
+                <div className="avatar">
+                  <div className="size-20 rounded-full">
+                    <img
+                      src={selectedUser.profilePic || "/avatar.png"}
+                      alt={selectedUser.fullName}
+                    />
+                  </div>
+                </div>
+                <div className="mx-7 underline font-bold">
+                  {selectedUser.fullName}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-[24px_1fr] gap-x-3 gap-y-2 text-sm my-6">
+                <CircleDotDashed />
+                <div className="truncate break-all">
+                  User ID ~ {selectedUser._id}
+                </div>
+
+                <CircleDotDashed />
+                <div>Username ~ {selectedUser.username || "N/A"}</div>
+
+                <CircleDotDashed />
+                <div>
+                  Last Online ~{" "}
+                  {selectedUser.lastSeen
+                    ? formatTimeAgo(selectedUser.lastSeen)
+                    : "Unknown"}
+                </div>
+
+                <CircleDotDashed />
+                <div>Total Companions ~ {companionCount}</div>
+              </div>
+
+              <div className="flex justify-center items-center label-text">
+                ~ <Cookie size={15} className="mx-1" />
+                Yemmy Chats
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Right Section - Notification Toggle + Close */}
+        {/* Right Section - Actions */}
         <div className="flex items-center gap-3 relative">
           <button
             onClick={() => navigate(`/storeroom/${selectedUser._id}`)}
@@ -83,6 +147,7 @@ const ChatHeader = () => {
             <Dock size={16} />
             Chat-StoreRoom
           </button>
+
           <div className="label-text transform transition-transform duration-700 ease-in-out hover:scale-90">
             Email-Notifications
           </div>
@@ -97,7 +162,6 @@ const ChatHeader = () => {
             {notificationsOn ? <Check className="text-success" /> : ""}
           </button>
 
-          {/* 🔒 Overlay div to handle clicks on disabled button */}
           {locked && (
             <div
               onClick={() =>
