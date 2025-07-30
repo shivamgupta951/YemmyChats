@@ -214,6 +214,7 @@ const MessageInput = () => {
               setShowEmojis((prev) => !prev);
               setShowRecorders(false);
             }}
+            title="Emojis"
           >
             <Drama size={22} />
             {showEmojis && (
@@ -232,6 +233,7 @@ const MessageInput = () => {
                 setShowEmojis(false);
               }}
               className="border flex justify-center items-center rounded-xl p-3"
+              title="VoiceMessage"
             >
               <Mic size={20} />
             </button>
@@ -300,8 +302,9 @@ const MessageInput = () => {
               imagePreview ? "text-emerald-500" : "text-zinc-400"
             }`}
             disabled={sending}
+            title="Select"
           >
-            <Image size={20} />
+            <Image size={20}/>
           </button>
         </div>
 
@@ -312,6 +315,7 @@ const MessageInput = () => {
           disabled={
             (!text.trim() && !imagePreview && !recordedAudio) || sending
           }
+          title="Send"
         >
           {sending ? (
             <Loader2 className="animate-spin size-4" />

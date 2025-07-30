@@ -1,11 +1,11 @@
 import { useChatStore } from "../store/useChatStore";
 import { useEffect, useRef } from "react";
-
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
+import { formatMessageDay } from "../lib/formatMessageDay";
 
 const ChatContainer = () => {
   const {
@@ -41,66 +41,78 @@ const ChatContainer = () => {
     );
   }
 
+  let lastRenderedDate = null;
+
   return (
     <div className="flex-1 flex flex-col overflow-auto">
       <ChatHeader />
 
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
-          <div
-            key={message._id}
-            className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
-            ref={messageEndRef}
-          >
-            <div className="chat-image avatar">
-              <div className="size-10 rounded-full border">
-                <img
-                  src={
-                    message.senderId === authUser._id
-                      ? authUser.profilePic || "/avatar.png"
-                      : selectedUser.profilePic || "/avatar.png"
-                  }
-                  alt="profile pic"
-                />
-              </div>
-            </div>
+        {messages.map((message) => {
+          const currentDate = formatMessageDay(message.createdAt);
+          const showDate = currentDate !== lastRenderedDate;
+          lastRenderedDate = currentDate;
 
-            <div className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">
-                {formatMessageTime(message.createdAt)}
-              </time>
-            </div>
-
-            <div className="chat-bubble flex flex-col max-w-[80%]">
-              {/* Image */}
-              {message.image && (
-                <img
-                  src={message.image}
-                  alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
-                />
-              )}
-
-              {/* Text */}
-              {message.text && <p>{message.text}</p>}
-
-              {/* Voice Message */}
-              {message.audio && (
-                <div className="mt-2">
-                  <audio
-                    controls
-                    src={message.audio}
-                    className="w-full"
-                    onPlay={() => console.log("🔊 Audio played")}
-                  />
-                  <p className="text-xs text-right text-base-content/70 mt-1">
-                    🎧 Voice message
-                  </p>
+          return (
+            <div key={message._id}>
+              {showDate && (
+                <div className="text-center text-xs font-semibold text-base-content/50 my-4">
+                  {currentDate}
                 </div>
               )}
+
+              <div
+                className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+                ref={messageEndRef}
+              >
+                <div className="chat-image avatar">
+                  <div className="size-10 rounded-full border">
+                    <img
+                      src={
+                        message.senderId === authUser._id
+                          ? authUser.profilePic || "/avatar.png"
+                          : selectedUser.profilePic || "/avatar.png"
+                      }
+                      alt="profile pic"
+                    />
+                  </div>
+                </div>
+
+                <div className="chat-header mb-1">
+                  <time className="text-xs opacity-50 ml-1">
+                    {formatMessageTime(message.createdAt)}
+                  </time>
+                </div>
+
+                <div className="chat-bubble flex flex-col max-w-[80%]">
+                  {message.image && (
+                    <img
+                      src={message.image}
+                      alt="Attachment"
+                      className="sm:max-w-[200px] rounded-md mb-2"
+                    />
+                  )}
+
+                  {message.text && <p>{message.text}</p>}
+
+                  {message.audio && (
+                    <div className="mt-2">
+                      <audio
+                        controls
+                        src={message.audio}
+                        className="w-full"
+                        onPlay={() => console.log("🔊 Audio played")}
+                      />
+                      <p className="text-xs text-right text-base-content/70 mt-1">
+                        🎧 Voice message
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <MessageInput />
