@@ -179,7 +179,7 @@ const ChatHeader = () => {
           </button>
         </div>
       </div>
-      <div className="absolute top-16 flex justify-center items-center w-[90%] my-1 opacity-25 text-[60%]">All the chats are end-to-end encripted and protected by<br/> authentication , Chat Freely and Happily! ~YemmyChats🦝</div>
+      <div className="absolute top-16 flex justify-center items-center w-[97%] my-1 opacity-25 text-[60%]">All the chats are end-to-end encripted and protected by<br/> authentication , Chat Freely and Happily! ~YemmyChats🦝</div>
     </div>
   );
 };
