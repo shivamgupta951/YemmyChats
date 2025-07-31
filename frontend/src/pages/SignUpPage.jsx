@@ -125,7 +125,7 @@ const SignUpPage = () => {
               >
                 <CircleUserRound className="size-6 text-primary" />
               </motion.div>
-              <h1 className="text-2xl font-bold text-gray-800">Create Account</h1>
+              <h1 className="text-2xl font-bold text-base-content">Create Account</h1>
               <p className="text-base-content/60 text-sm">
                 Get started with your free account
               </p>

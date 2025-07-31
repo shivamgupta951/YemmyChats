@@ -58,7 +58,7 @@ const LoginPage = () => {
               >
                 <MessageSquare className="size-6 text-primary" />
               </motion.div>
-              <h1 className="text-2xl font-bold text-gray-800">Welcome Back!</h1>
+              <h1 className="text-2xl font-bold text-base-content">Welcome Back!</h1>
               <p className="text-base-content/60 text-sm">
                 Sign in to your account
               </p>
