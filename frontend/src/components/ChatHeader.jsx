@@ -11,8 +11,9 @@ import toast from "react-hot-toast";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import { axiosInstance } from "../lib/axios";
-import { formatTimeAgo } from "../lib/formatTimeAgo"; // ✅
+import { formatTimeAgo } from "../lib/formatTimeAgo";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
@@ -180,10 +181,15 @@ const ChatHeader = () => {
         </div>
       </div>
       <div className="absolute top-16 flex justify-center items-center w-[97%] opacity-25 text-[60%]">
-        <div className="bg-base-300 px-10 rounded-lg">
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.9 }}
+          className="bg-base-300 px-10 rounded-lg"
+        >
           All the chats are end-to-end encripted and protected by
           <br /> authentication , Chat Freely and Happily! ~YemmyChats🦝
-        </div>
+        </motion.div>
       </div>
     </div>
   );
