@@ -6,8 +6,8 @@ import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
 import { formatMessageDay } from "../lib/formatMessageDay";
-import { ArrowLeftRight } from "lucide-react";
-import { motion } from "framer-motion";
+// import { ArrowLeftRight } from "lucide-react";
+// import { motion } from "framer-motion";
 
 const ChatContainer = () => {
   const {
@@ -125,12 +125,12 @@ const ChatContainer = () => {
       </div>
 
       <MessageInput />
-      <div className="absolute py-4 border rounded-e-2xl bg-base-200 left-0 top-1/4 border-l-0 cursor-pointer hover:bg-base-300">
+      {/* <div className="absolute py-4 border rounded-e-2xl bg-base-200 left-0 top-1/4 border-l-0 cursor-pointer hover:bg-base-300">
         <ArrowLeftRight className="text-base-content" size={20} />
       </div>
       <motion.div initial={{x: -30 , opacity: 0}} animate={{x: 0 , opacity: 1}} transition={{duration: 0.5}} className="absolute border size-60 top-60 rounded-xl bg-neutral opacity-70">
         <h4 className="flex justify-center items-center">Chat-Note</h4>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 };
