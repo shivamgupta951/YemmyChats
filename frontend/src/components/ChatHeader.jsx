@@ -180,7 +180,7 @@ const ChatHeader = () => {
           </button>
         </div>
       </div>
-      <div className="absolute top-16 flex justify-center items-center w-[97%] opacity-25 text-[60%]">
+      <div className="absolute top-16 flex justify-center items-center w-[97%] opacity-55 text-[60%]">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

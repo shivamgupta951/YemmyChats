@@ -1,13 +1,15 @@
 import { useChatStore } from "../store/useChatStore";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
 import { formatMessageDay } from "../lib/formatMessageDay";
-// import { ArrowLeftRight } from "lucide-react";
-// import { motion } from "framer-motion";
+import { ArrowLeftRight, NotepadText, Trash } from "lucide-react";
+import { motion } from "framer-motion";
+import toast from "react-hot-toast";
+import { getNote, updateNote, deleteNote } from "../lib/userApi";
 
 const ChatContainer = () => {
   const {
@@ -21,22 +23,71 @@ const ChatContainer = () => {
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
 
+  const [notebox, setNotebox] = useState(false);
+  const [noteText, setNoteText] = useState("");
+  const [loadingNote, setLoadingNote] = useState(false);
+
+  // Load messages
   useEffect(() => {
     getMessages(selectedUser._id);
     subscribeToMessages();
     return () => unsubscribeFromMessages();
-  }, [
-    selectedUser._id,
-    getMessages,
-    subscribeToMessages,
-    unsubscribeFromMessages,
-  ]);
+  }, [selectedUser._id]);
 
+  // Scroll to bottom
   useEffect(() => {
     if (messageEndRef.current && messages) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  // Load NoteBox on user change
+  useEffect(() => {
+    const fetchNote = async () => {
+      try {
+        setLoadingNote(true);
+        const res = await getNote(selectedUser._id);
+        setNoteText(res?.content || "");
+      } catch (err) {
+        console.error("Error fetching note:", err);
+      } finally {
+        setLoadingNote(false);
+      }
+    };
+    fetchNote();
+  }, [selectedUser._id]);
+
+  const handleNoteChange = (e) => {
+    const text = e.target.value;
+    if (text.split(" ").length <= 200) {
+      setNoteText(text);
+    } else {
+      toast.error("Note can't exceed 200 words");
+    }
+  };
+
+  const handleNoteSave = async () => {
+    try {
+      await updateNote(selectedUser._id, noteText);
+      toast.success("Note updated");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to save note");
+    }
+  };
+
+  const handleNoteDelete = async () => {
+    if (confirm("Are you sure you want to clear the note?")) {
+      try {
+        await deleteNote(selectedUser._id);
+        setNoteText("");
+        toast.success("Note deleted");
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to delete note");
+      }
+    }
+  };
 
   if (isMessagesLoading) {
     return (
@@ -125,12 +176,60 @@ const ChatContainer = () => {
       </div>
 
       <MessageInput />
-      {/* <div className="absolute py-4 border rounded-e-2xl bg-base-200 left-0 top-1/4 border-l-0 cursor-pointer hover:bg-base-300">
+
+      {/* Notebox toggle button */}
+      <div
+        title="Note-Box"
+        className="absolute py-4 border rounded-e-2xl bg-base-200 left-0 top-1/4 border-l-0 cursor-pointer hover:bg-base-300"
+        onClick={() => setNotebox((prev) => !prev)}
+      >
         <ArrowLeftRight className="text-base-content" size={20} />
       </div>
-      <motion.div initial={{x: -30 , opacity: 0}} animate={{x: 0 , opacity: 1}} transition={{duration: 0.5}} className="absolute border size-60 top-60 rounded-xl bg-neutral opacity-70">
-        <h4 className="flex justify-center items-center">Chat-Note</h4>
-      </motion.div> */}
+
+      {/* Notebox Panel */}
+      {notebox && (
+        <motion.div
+          initial={{ x: -30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="absolute border size-72 top-60 rounded-xl bg-base-300 opacity-90 border-l-0"
+        >
+          <h4 className="flex justify-center items-center label-text font-bold my-2">
+            <NotepadText className="mx-1" /> Note-Box
+          </h4>
+
+          <div className="flex justify-center items-center">
+            <textarea
+              className="text-[70%] w-[90%] mx-auto resize-none border px-2 py-1 border-error shadow-sm shadow-warning rounded-md h-[140px] bg-base-200"
+              placeholder="Write a note (max 200 words)..."
+              value={noteText}
+              onChange={handleNoteChange}
+              disabled={loadingNote}
+            />
+          </div>
+          <div className="flex mx-6 justify-between items-center my-4 space-x-3">
+            <button
+              onClick={handleNoteSave}
+              disabled={loadingNote}
+              className="btn btn-xs btn-success"
+            >
+              Save
+            </button>
+
+            <button
+              onClick={handleNoteDelete}
+              className="btn btn-xs btn-error"
+              disabled={loadingNote}
+            >
+              <Trash size={16} />
+            </button>
+          </div>
+
+          <div className="label-text text-success mx-5 mt-9 font-mono text-[80%] flex justify-start items-end">
+            You 🔗 {selectedUser.fullName}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };

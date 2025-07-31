@@ -214,3 +214,49 @@ export const sendOtp = async (req, res) => {
     res.status(500).json({ message: "Failed to send OTP" });
   }
 };
+
+// ----------------------- Note Management (Embedded) -----------------------
+export const getUserNote = async (req, res) => {
+  const userId = req.user._id;
+  const targetId = req.params.userId;
+
+  try {
+    const user = await User.findById(userId);
+    const content = user.notes.get(targetId) || "";
+    res.status(200).json({ content });
+  } catch (err) {
+    console.error("❌ getUserNote failed:", err);
+    res.status(500).json({ message: "Failed to get note" });
+  }
+};
+
+export const updateUserNote = async (req, res) => {
+  const userId = req.user._id;
+  const targetId = req.params.userId;
+  const { content } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    user.notes.set(targetId, content);
+    await user.save();
+    res.status(200).json({ content });
+  } catch (err) {
+    console.error("❌ updateUserNote failed:", err);
+    res.status(500).json({ message: "Failed to update note" });
+  }
+};
+
+export const deleteUserNote = async (req, res) => {
+  const userId = req.user._id;
+  const targetId = req.params.userId;
+
+  try {
+    const user = await User.findById(userId);
+    user.notes.delete(targetId);
+    await user.save();
+    res.status(200).json({ message: "Note deleted" });
+  } catch (err) {
+    console.error("❌ deleteUserNote failed:", err);
+    res.status(500).json({ message: "Failed to delete note" });
+  }
+};

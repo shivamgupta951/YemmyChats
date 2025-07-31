@@ -45,6 +45,11 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    notes: {
+      type: Map,
+      of: String,
+      default: {},
+    },
   },
   { timestamps: true }
 );

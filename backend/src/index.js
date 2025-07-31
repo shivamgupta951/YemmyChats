@@ -13,7 +13,7 @@ import contactRoutes from "./routes/contactRoutes.js";
 import userRoutes from "./routes/user.route.js";
 import companionRoutes from "./routes/companion.route.js";
 import notificationRoutes from "./routes/notification.route.js"; 
-
++
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
