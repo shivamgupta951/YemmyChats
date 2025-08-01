@@ -6,7 +6,7 @@ import MessageSkeleton from "./skeletons/MessageSkeleton";
 import { useAuthStore } from "../store/useAuthStore";
 import { formatMessageTime } from "../lib/utils";
 import { formatMessageDay } from "../lib/formatMessageDay";
-import { ArrowLeftRight, NotepadText, Trash } from "lucide-react";
+import { ArrowLeftRight, BookCheck, NotepadText, Trash } from "lucide-react";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { getNote, updateNote, deleteNote } from "../lib/userApi";
@@ -195,7 +195,7 @@ const ChatContainer = () => {
           className="absolute border size-72 top-60 rounded-xl bg-base-300 opacity-90 border-l-0"
         >
           <h4 className="flex justify-center items-center label-text font-bold my-2">
-            <NotepadText className="mx-1" /> Note-Box
+            <BookCheck className="mx-1"/> Note-Box
           </h4>
 
           <div className="flex justify-center items-center">
@@ -225,8 +225,10 @@ const ChatContainer = () => {
             </button>
           </div>
 
-          <div className="label-text text-success mx-5 mt-9 font-mono text-[80%] flex justify-start items-end">
-            You 🔗 {selectedUser.fullName}
+          <div className="label-text mx-5 mt-9 font-serif text-[80%] flex justify-between items-end">
+            <div>You 🔗 {selectedUser.fullName}</div> <div className="text-[80%] text-error font-sans">
+              ~YemmyChats🦝 
+            </div>
           </div>
         </motion.div>
       )}
