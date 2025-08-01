@@ -4,6 +4,7 @@ import {
   CircleDotDashed,
   Cookie,
   Dock,
+  NotepadText,
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -58,6 +59,10 @@ const ChatHeader = () => {
     if (selectedUser?._id) fetchStatus();
   }, [selectedUser]);
 
+  const handletodolist = () =>
+  {
+    toast.success("Comming Soon!")
+  }
   const companionCount = selectedUser?.companions?.length || 0;
   const isOnline = onlineUsers.includes(selectedUser._id);
   const lastSeen =
@@ -143,6 +148,14 @@ const ChatHeader = () => {
 
         {/* Right Section - Actions */}
         <div className="flex items-center gap-3 relative">
+          <button
+            className="label-text transform transition-transform duration-700 ease-in-out hover:scale-90 flex items-center gap-1 mx-2"
+            onClick={handletodolist}
+          >
+            <NotepadText size={16} />
+            todo-List
+          </button>
+
           <button
             onClick={() => navigate(`/storeroom/${selectedUser._id}`)}
             className="label-text transform transition-transform duration-700 ease-in-out hover:scale-90 flex items-center gap-1 mx-2"
