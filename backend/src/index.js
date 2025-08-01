@@ -13,6 +13,8 @@ import contactRoutes from "./routes/contactRoutes.js";
 import userRoutes from "./routes/user.route.js";
 import companionRoutes from "./routes/companion.route.js";
 import notificationRoutes from "./routes/notification.route.js"; 
+import todoRoutes from "./routes/todo.route.js";
+
 +
 dotenv.config();
 
@@ -38,6 +40,7 @@ app.use(
 
 // ✅ API routes
 app.use("/api/companion", companionRoutes);
+app.use("/api/todos", todoRoutes);
 app.use("/api/storeroom", storeRoomRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);

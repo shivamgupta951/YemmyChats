@@ -201,7 +201,7 @@ const ChatContainer = () => {
           <div className="flex justify-center items-center">
             <textarea
               className="text-[70%] w-[90%] mx-auto resize-none border px-2 py-1 border-error shadow-sm shadow-warning rounded-md h-[140px] bg-base-200"
-              placeholder="Write a note (max 200 words)..."
+              placeholder="Save a note (max 200 words)..."
               value={noteText}
               onChange={handleNoteChange}
               disabled={loadingNote}

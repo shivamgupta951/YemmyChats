@@ -59,10 +59,13 @@ const ChatHeader = () => {
     if (selectedUser?._id) fetchStatus();
   }, [selectedUser]);
 
-  const handletodolist = () =>
-  {
-    toast.success("Comming Soon!")
-  }
+  const handletodolist = () => {
+    if (selectedUser?._id) {
+      navigate(`/todolist/${selectedUser._id}`);
+    } else {
+      toast.error("No user selected");
+    }
+  };
   const companionCount = selectedUser?.companions?.length || 0;
   const isOnline = onlineUsers.includes(selectedUser._id);
   const lastSeen =

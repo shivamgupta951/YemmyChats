@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import FamPage from "./pages/FamPage";
 import AboutPage from "./pages/AboutPage";
 import StoreRoomPage from "./pages/StoreRoomPage";
+import TodoList from "./pages/TodoList";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -62,6 +63,10 @@ const App = () => {
         <Route
           path="/storeroom/:userId"
           element={authUser ? <StoreRoomPage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/todolist/:userId"
+          element={authUser ? <TodoList/> : <Navigate to="/login" />}
         />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/about" element={<AboutPage />} />
