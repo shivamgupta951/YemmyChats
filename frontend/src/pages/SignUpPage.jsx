@@ -98,21 +98,28 @@ const SignUpPage = () => {
     if (!otpSent) return toast.error("Please send and enter OTP first!");
     if (!otp) return toast.error("OTP is required!");
 
-    signup({ ...formData, otp });
+    try {
+      await signup({ ...formData, otp });
+    } catch (error) {
+      const message = error?.response?.data?.message || "Signup failed";
+      toast.error(message, {
+        duration: 5000,
+      });
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-br from-base-100 to-base-200 pt-16">
       {/* Left Side - Form */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 order-2 lg:order-1"
       >
-        <div className="w-full max-w-md bg-base-100 p-6 sm:p-8 rounded-2xl shadow-xl border border-base-300">
+        <div className="w-full max-w-md bg-base-100 p-6 sm:p-8 rounded-e-2xl shadow-xl border border-base-300">
           {/* Header */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -125,7 +132,9 @@ const SignUpPage = () => {
               >
                 <CircleUserRound className="size-6 text-primary" />
               </motion.div>
-              <h1 className="text-2xl font-bold text-base-content">Create Account</h1>
+              <h1 className="text-2xl font-bold text-base-content">
+                Create Account
+              </h1>
               <p className="text-base-content/60 text-sm">
                 Get started with your free account
               </p>
@@ -188,7 +197,7 @@ const SignUpPage = () => {
                 {usernameAvailable === true && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     className="text-success text-sm mt-1 flex items-center gap-1"
                   >
@@ -198,7 +207,7 @@ const SignUpPage = () => {
                 {usernameAvailable === false && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     className="text-error text-sm mt-1 flex items-center gap-1"
                   >
@@ -279,7 +288,9 @@ const SignUpPage = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="button"
-                className={`btn btn-outline btn-accent w-full sm:w-auto ${otpSent ? 'btn-success' : ''}`}
+                className={`btn btn-outline btn-accent w-full sm:w-auto ${
+                  otpSent ? "btn-success" : ""
+                }`}
                 onClick={handleSendOtp}
                 disabled={sendingOtp}
               >
@@ -289,7 +300,8 @@ const SignUpPage = () => {
                   </>
                 ) : (
                   <>
-                    <MailCheck className="size-4" /> {otpSent ? 'OTP Sent' : 'Send OTP'}
+                    <MailCheck className="size-4" />{" "}
+                    {otpSent ? "OTP Sent" : "Send OTP"}
                   </>
                 )}
               </motion.button>
@@ -340,8 +352,8 @@ const SignUpPage = () => {
             transition={{ delay: 0.8 }}
             className="text-center mt-6"
           >
-            <p className="text-base-content/70">
-              Already have an account?{" "}
+            <p className="text-base-content/70 flex justify-center">
+             <LinkIcon className="mx-2 animate-spin"/> Already have an account?{" "}
               <Link to="/login" className="link link-primary font-medium">
                 Sign in
               </Link>

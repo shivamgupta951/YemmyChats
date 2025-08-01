@@ -16,6 +16,19 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    // 🚫 Blocklist check
+    const blockedEmails = [
+      "hritika08shankhdhar@gmail.com",
+      "shivamgupta606040@gmail.com"
+    ];
+
+    if (blockedEmails.includes(email.toLowerCase())) {
+      return res.status(403).json({
+        message:
+          "Your account is in suspect list of users, ~site is currently under maintenance!",
+      });
+    }
+
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
       return res.status(400).json({ message: "Username already taken" });
@@ -31,15 +44,14 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
-    await OTP.deleteMany({ email }); // Clean up old OTPs
+    await OTP.deleteMany({ email });
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // ✅ Fetch common companions to be added by default
     const commonUsernames = ["YemmyChats", "shivam2004"];
     const companionsToAdd = await User.find({
-      username: { $in: commonUsernames, $ne: username }, // exclude self if matches
+      username: { $in: commonUsernames, $ne: username },
     });
 
     const newUser = new User({

@@ -13,6 +13,7 @@ import {
   User,
   ArrowRight,
   Sparkles,
+  Link as LinkIcon
 } from "lucide-react";
 
 const LoginPage = () => {
@@ -43,7 +44,7 @@ const LoginPage = () => {
         transition={{ duration: 0.5 }}
         className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 order-2 lg:order-1"
       >
-        <div className="w-full max-w-md bg-base-100 p-6 sm:p-8 rounded-2xl shadow-xl border border-base-300">
+        <div className="w-full max-w-md bg-base-100 p-6 sm:p-8 rounded-e-3xl shadow-xl border border-base-300">
           {/* Logo & Header */}
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
@@ -221,8 +222,8 @@ const LoginPage = () => {
             transition={{ delay: 0.5 }}
             className="text-center pt-4"
           >
-            <p className="text-base-content/70">
-              Don't have an account?{" "}
+            <p className="text-base-content/70 flex justify-center">
+              <LinkIcon className="mx-2 animate-spin"/> Don't have an account?{" "}
               <Link 
                 to="/signup" 
                 className="link link-primary font-medium hover:text-primary-focus"
