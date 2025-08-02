@@ -1,4 +1,4 @@
-import { Boxes, MessageSquare } from "lucide-react";
+import { Boxes, Home, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -19,11 +19,18 @@ const NoChatSelected = () => {
         className="p-3 flex justify-end border-b border-base-300"
       >
         <button
-          className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
+          className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight mx-3"
           onClick={ManageFriends}
         >
           <Boxes size={20} />
           Manage Companions
+        </button>
+        <button
+          className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
+          onClick={() => navigate("/")}
+        >
+          <Home size={20} />
+          Back To Home
         </button>
       </motion.div>
 

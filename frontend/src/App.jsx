@@ -16,6 +16,9 @@ import FamPage from "./pages/FamPage";
 import AboutPage from "./pages/AboutPage";
 import StoreRoomPage from "./pages/StoreRoomPage";
 import TodoList from "./pages/TodoList";
+import ChatSection from "./pages/ChatSection";
+import CommunitySection from "./pages/CommunitySection";
+import BlogSection from "./pages/BlogSection";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -61,6 +64,18 @@ const App = () => {
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
         <Route
+          path="/chat"
+          element={authUser ? <ChatSection/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/blog"
+          element={authUser ? <BlogSection/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/community"
+          element={authUser ? <CommunitySection/> : <Navigate to="/login" />}
+        />
+        <Route
           path="/storeroom/:userId"
           element={authUser ? <StoreRoomPage/> : <Navigate to="/login" />}
         />
@@ -85,7 +100,7 @@ const App = () => {
       </Routes>
       <Toaster />
 
-      {location.pathname !== "/" && <Footer />}
+      {location.pathname !== "/chat"  && <Footer />}
     </div>
   );
 };

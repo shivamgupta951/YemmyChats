@@ -152,9 +152,9 @@ const TodoList = () => {
 
       {/* Tasks Grid */}
       {tasks.length === 0 ? (
-        <p className="text-center text-base-content/70">No tasks yet.</p>
+        <p className="text-center text-base-content/70 border p-20">No tasks yet.</p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 border p-10 rounded-ee-3xl rounded-tl-3xl bg-base-300 border-error">
           {tasks.map((task) => {
             const isCreator = task.createdBy._id === authUser._id;
             const yourCheck = isCreator

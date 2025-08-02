@@ -16,7 +16,7 @@ function FamPage() {
 
   const navigate = useNavigate();
 
-  const handleBack = () => navigate("/");
+  const handleBack = () => navigate("/chat");
 
   const fetchCompanions = async () => {
     try {
