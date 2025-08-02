@@ -118,7 +118,7 @@ const StoreRoomPage = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/chat")}
             className="btn btn-sm btn-outline flex items-center gap-2 px-4 rounded-lg"
           >
             <ChevronLeft size={20} />

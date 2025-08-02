@@ -113,7 +113,7 @@ const TodoList = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/chat")}
           className="btn btn-sm btn-outline flex items-center gap-2"
         >
           <ChevronLeft size={20} />

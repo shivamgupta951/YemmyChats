@@ -14,7 +14,7 @@ const HomePage = () => {
       <div className="flex items-center justify-center pt-28 px-4">
         <div>
           <div className="text-3xl flex justify-center text-base-content my-10">
-            Yemmy Chat Services!
+            Yemmy Chats Services!
           </div>
           <div className="flex space-x-8">
             <button
