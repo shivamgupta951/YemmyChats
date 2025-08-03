@@ -1,7 +1,7 @@
 import { useChatStore } from "../store/useChatStore";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Castle, Table } from "lucide-react";
+import { Castle, Cookie, Presentation, Table } from "lucide-react";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import { motion } from "framer-motion";
 
@@ -40,7 +40,7 @@ const HomePage = () => {
           <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4">
             ~Yemmy Chats Services
             <Castle className="mx-2 mt-1 text-accent/80" size={30} />
-            <Table className="mt-1 animate-spin-slow" />
+            <Presentation className="mt-2 animate-spin-slow" />
           </div>
 
           <div className="grid gap-6">

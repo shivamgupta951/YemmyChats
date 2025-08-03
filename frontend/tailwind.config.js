@@ -8,6 +8,7 @@ export default {
       animation: {
         "pulse-slow": "pulse 3s ease-in-out infinite",
         "pulse-slower": "pulse 5s ease-in-out infinite",
+        'spin-slow': 'spin 5s linear infinite',
       },
     },
   },
