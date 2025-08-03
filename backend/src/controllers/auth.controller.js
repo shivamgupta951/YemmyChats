@@ -18,7 +18,6 @@ export const signup = async (req, res) => {
 
     // 🚫 Blocklist check
     const blockedEmails = [
-      "hritika08shankhdhar@gmail.com",
       "shivamgupta606040@gmail.com"
     ];
 
