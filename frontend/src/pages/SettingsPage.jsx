@@ -28,7 +28,7 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen px-3 sm:px-4 pt-20 pb-10 max-w-5xl mx-auto">
+    <div className="min-h-screen px-3 sm:px-4 pt-24 pb-10 max-w-5xl mx-auto">
       <div className="space-y-4 sm:space-y-6">
         {/* Top bar with GitHub & Back buttons */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-start sm:items-center">
