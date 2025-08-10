@@ -9,7 +9,7 @@ const PostSection = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen flex justify-between items-center">
-      <div className="min-h-screen border-l-0 border-b-0 border-t-0 w-1/4 pt-24 space-y-10 border-base-300 border-4 p-2">
+      <div className="min-h-screen border-l-0 border-b-0 border-t-0 w-1/4 pt-20 space-y-10 border-base-300 border-4 p-2">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -54,7 +54,7 @@ const PostSection = () => {
       <div className="text-4xl p-10 px-20 rounded-2xl bg-base-300 text-error/60 border ">
         Comming Soon
       </div>
-      <div className="border-l-4 border-base-300 w-1/4 min-h-screen pt-24">
+      <div className="border-l-4 border-base-300 w-1/4 min-h-screen pt-16">
         <div className="flex justify-center items-end my-5">
           <button
             className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
@@ -69,7 +69,7 @@ const PostSection = () => {
           initial={{ x: 80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ type: "spring", stiffness: 80, duration: 1 }}
-          className="w-full lg:w-[100%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
+          className="w-full lg:w-[90%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out ml-4"
         >
           <motion.div
             animate={{ rotate: [0, 8, -8, 0] }}

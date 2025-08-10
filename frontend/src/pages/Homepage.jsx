@@ -41,9 +41,8 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="h-screen bg-base-200 flex justify-center items-center">
+    <div className="h-screen bg-base-200 flex justify-center items-center pt-10">
       <div className="flex flex-wrap lg:flex-nowrap justify-around items-center w-[90%] h-full gap-10 pt-24 lg:pt-0">
-        
         {/* Left Side */}
         <motion.div
           initial={{ x: -80, opacity: 0 }}
@@ -70,7 +69,7 @@ const HomePage = () => {
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigate(section.path, section.label)}
-                  className="cursor-pointer py-8 px-10 sm:px-20 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300"
+                  className="cursor-pointer py-6 px-10 sm:px-16 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300"
                 >
                   <div className="flex justify-center items-center gap-2">
                     {section.label === "Yemmit" ? (
