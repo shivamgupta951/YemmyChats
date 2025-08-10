@@ -1,9 +1,14 @@
 import { useChatStore } from "../store/useChatStore";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Castle, Cookie, Presentation, Table } from "lucide-react";
+import { Castle, Presentation } from "lucide-react";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import { motion } from "framer-motion";
+import { GoHubot } from "react-icons/go";
+import { FaBlogger } from "react-icons/fa";
+import { PiChatsCircleBold } from "react-icons/pi";
+import { RiUserCommunityFill } from "react-icons/ri";
+import { BsFillPostcardHeartFill } from "react-icons/bs";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -27,9 +32,18 @@ const HomePage = () => {
     toast.success(`Welcome to ${label} Section!`);
   };
 
+  const sections = [
+    { label: "Chat", path: "/chat", icon: PiChatsCircleBold },
+    { label: "Blog", path: "/blog", icon: FaBlogger },
+    { label: "Community", path: "/community", icon: RiUserCommunityFill },
+    { label: "Post", path: "/post", icon: BsFillPostcardHeartFill },
+    { label: "Yemmit", path: "/yemmit", icon: GoHubot },
+  ];
+
   return (
     <div className="h-screen bg-base-200 flex justify-center items-center">
       <div className="flex flex-wrap lg:flex-nowrap justify-around items-center w-[90%] h-full gap-10 pt-24 lg:pt-0">
+        
         {/* Left Side */}
         <motion.div
           initial={{ x: -80, opacity: 0 }}
@@ -44,26 +58,34 @@ const HomePage = () => {
           </div>
 
           <div className="grid gap-6">
-            {[
-              { label: "Chat", path: "/chat" },
-              { label: "Blog", path: "/blog" },
-              { label: "Community", path: "/community" },
-              { label: "Post", path: "/post" },
-            ].map((section, i) => (
-              <motion.div
-                key={section.label}
-                custom={i}
-                variants={sectionVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handleNavigate(section.path, section.label)}
-                className="cursor-pointer py-8 px-10 sm:px-20 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300"
-              >
-                {section.label} Section
-              </motion.div>
-            ))}
+            {sections.map((section, i) => {
+              const Icon = section.icon;
+              return (
+                <motion.div
+                  key={section.label}
+                  custom={i}
+                  variants={sectionVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleNavigate(section.path, section.label)}
+                  className="cursor-pointer py-8 px-10 sm:px-20 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300"
+                >
+                  <div className="flex justify-center items-center gap-2">
+                    {section.label === "Yemmit" ? (
+                      <>
+                        Ask Yemmit <Icon className="text-2xl mt-1" />
+                      </>
+                    ) : (
+                      <>
+                        {section.label} Section <Icon className="text-2xl mt-1" />
+                      </>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
 
@@ -75,7 +97,7 @@ const HomePage = () => {
           className="w-full lg:w-[35%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
         >
           <motion.div
-            animate={{ rotate: [0, 3, -3, 0] }}
+            animate={{ rotate: [0, 8, -8, 0] }}
             transition={{
               repeat: Infinity,
               duration: 6,
@@ -94,7 +116,8 @@ const HomePage = () => {
             Yemmy Chats
           </h2>
           <p className="text-base-content/60 px-4 text-md sm:text-lg">
-            A secure, fast, and modern platform to connect with your companions in real time!
+            A secure, fast, and modern platform to connect with your companions
+            in real time!
           </p>
         </motion.div>
       </div>
