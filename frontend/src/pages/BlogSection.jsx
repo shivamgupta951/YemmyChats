@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Home } from "lucide-react";
+import { motion } from "framer-motion";
 const BlogSection = () => {
   const navigate = useNavigate();
   return (
@@ -15,9 +16,14 @@ const BlogSection = () => {
             Back To Home
           </button>
         </div>
-        <h1 className="p-10 border rounded-ss-2xl rounded-ee-2xl px-60 border-error bg-base-300 text-3xl font-bold ">
+        <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.9 }}
+          className="p-10 border rounded-ss-2xl rounded-ee-2xl px-60 border-error bg-base-300 text-3xl font-bold "
+        >
           Comming Soon!
-        </h1>
+        </motion.div>
       </div>
     </div>
   );

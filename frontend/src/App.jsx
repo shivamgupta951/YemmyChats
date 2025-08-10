@@ -19,6 +19,7 @@ import TodoList from "./pages/TodoList";
 import ChatSection from "./pages/ChatSection";
 import CommunitySection from "./pages/CommunitySection";
 import BlogSection from "./pages/BlogSection";
+import PostSection from "./pages/PostSection";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -66,6 +67,10 @@ const App = () => {
         <Route
           path="/chat"
           element={authUser ? <ChatSection/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/post"
+          element={authUser ? <PostSection/> : <Navigate to="/login" />}
         />
         <Route
           path="/blog"

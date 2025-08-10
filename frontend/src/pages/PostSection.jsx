@@ -1,9 +1,8 @@
-import { ArrowBigLeft, MoveLeft } from "lucide-react";
 import React from "react";
-import { Home } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Home } from "lucide-react";
 import { motion } from "framer-motion";
-const CommunitySection = () => {
+const PostSection = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen flex justify-center items-center">
@@ -30,4 +29,4 @@ const CommunitySection = () => {
   );
 };
 
-export default CommunitySection;
+export default PostSection;

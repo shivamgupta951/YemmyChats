@@ -48,6 +48,7 @@ const HomePage = () => {
               { label: "Chat", path: "/chat" },
               { label: "Blog", path: "/blog" },
               { label: "Community", path: "/community" },
+              { label: "Post", path: "/post" },
             ].map((section, i) => (
               <motion.div
                 key={section.label}
