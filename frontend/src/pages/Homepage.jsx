@@ -98,17 +98,17 @@ const HomePage = () => {
                     )}
                   </div>
                   {section.label === "Yemmit" && (
-                    <div className="label-text absolute right-4 top-5">
+                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
                   {section.label === "Blog" && (
-                    <div className="label-text absolute right-4 top-5">
+                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
                   {section.label === "Community" && (
-                    <div className="label-text absolute right-4 top-5">
+                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
