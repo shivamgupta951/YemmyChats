@@ -73,15 +73,15 @@ const PostSection = () => {
         initial={{ x: 50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-1/4 h-screen sticky top-0 border-l border-base-300 px-4"
+        className="w-1/4 h-screen sticky top-0 border-l border-base-300 px-4 pt-10"
       >
-        <div className="flex justify-center my-5">
+        <div className="flex justify-center items-center my-5">
           <button
-            className="btn btn-outline btn-accent flex items-center gap-2"
+            className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
             onClick={() => navigate("/")}
           >
             <Home size={20} />
-            Home
+            Back To Home
           </button>
         </div>
 
@@ -108,7 +108,7 @@ const PostSection = () => {
           <CircularText
             text="**YEMMY****CHATS**"
             onHover="speedUp"
-            spinDuration={20}
+            spinDuration={40}
             className="my-6"
           />
         </div>
