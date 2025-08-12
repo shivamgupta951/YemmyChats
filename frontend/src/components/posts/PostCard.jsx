@@ -20,9 +20,12 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   const [showComments, setShowComments] = useState(false);
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [showLikeAnim, setShowLikeAnim] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(post.caption || "");
   const isLiked = localPost.likes?.includes(authUser?._id);
   const carouselRef = useRef(null);
 
+  // --- LIKE ---
   const toggleLike = async () => {
     if (!authUser) {
       toast.error("You must be logged in to like");
@@ -37,7 +40,6 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
 
     try {
       const res = await axiosInstance.post(`/posts/${localPost._id}/like`);
-      // ✅ Only update likes from response to avoid losing other fields
       setLocalPost((prev) => ({
         ...prev,
         likes: res.data.likes || prev.likes,
@@ -45,7 +47,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
     } catch (err) {
       console.error("like failed", err);
       toast.error("Failed to update like");
-      setLocalPost(post); // revert
+      setLocalPost(post);
     }
   };
 
@@ -55,6 +57,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
     setTimeout(() => setShowLikeAnim(false), 800);
   };
 
+  // --- COMMENT ---
   const submitComment = async (e) => {
     e.preventDefault();
     if (!commentText.trim()) return;
@@ -82,7 +85,6 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
       const res = await axiosInstance.post(`/posts/${localPost._id}/comment`, {
         text: tempComment.text,
       });
-      // ✅ Only update comments to keep createdAt and other fields intact
       setLocalPost((prev) => ({
         ...prev,
         comments: res.data.comments || prev.comments,
@@ -94,6 +96,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
     }
   };
 
+  // --- DELETE POST ---
   const handleDelete = async () => {
     if (!confirm("Delete this post?")) return;
     try {
@@ -106,6 +109,30 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
     }
   };
 
+  // --- EDIT POST ---
+  const handleEditSave = async () => {
+    if (!editText.trim()) {
+      toast.error("Caption cannot be empty");
+      return;
+    }
+    try {
+      const res = await axiosInstance.patch(`/posts/${localPost._id}`, {
+        caption: editText.trim(),
+      });
+      setLocalPost((prev) => ({
+        ...prev,
+        caption: res.data.post?.caption || editText.trim(),
+      }));
+      toast.success("Post updated");
+      setIsEditing(false);
+      onUpdated(localPost._id);
+    } catch (err) {
+      console.error("edit post error", err);
+      toast.error("Failed to update post");
+    }
+  };
+
+  // --- CAROUSEL ---
   const prevSlide = () => {
     setCarouselIndex(
       (i) =>
@@ -120,7 +147,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   return (
     <motion.div
       layout
-      className="max-w-md mx-auto bg-base-100 border rounded-xl shadow-lg overflow-hidden"
+      className="max-w-xl mx-auto bg-base-100 border rounded-xl shadow-lg overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center gap-3 p-4">
@@ -139,9 +166,23 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
         </div>
         {localPost.author?._id === authUser?._id && (
           <>
-            <button className="btn btn-ghost btn-xs" title="Edit">
-              <Edit2 size={14} />
-            </button>
+            {isEditing ? (
+              <button
+                className="btn btn-ghost btn-xs text-success"
+                title="Save"
+                onClick={handleEditSave}
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                className="btn btn-ghost btn-xs"
+                title="Edit"
+                onClick={() => setIsEditing(true)}
+              >
+                <Edit2 size={14} />
+              </button>
+            )}
             <button
               className="btn btn-ghost btn-xs text-error"
               title="Delete"
@@ -171,7 +212,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: i === carouselIndex ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
-                className={`mx-6 w-[90%] h-full object-cover`}
+                className={`w-[100%] h-full object-cover`}
                 style={{ display: i === carouselIndex ? "block" : "none" }}
               />
             ))}
@@ -222,7 +263,15 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
 
       {/* Caption & Actions */}
       <div className="p-4">
-        <p className="mb-3">{localPost.caption}</p>
+        {isEditing ? (
+          <textarea
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            className="textarea textarea-bordered w-full mb-3"
+          />
+        ) : (
+          <p className="mb-3">{localPost.caption}</p>
+        )}
         <div className="flex items-center gap-4">
           <button
             className="flex items-center gap-1 btn btn-ghost"
