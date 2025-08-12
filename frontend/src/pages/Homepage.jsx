@@ -9,6 +9,8 @@ import { FaBlogger } from "react-icons/fa";
 import { PiChatsCircleBold } from "react-icons/pi";
 import { RiUserCommunityFill } from "react-icons/ri";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
+import { AiFillCompass } from "react-icons/ai";
+
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -52,8 +54,8 @@ const HomePage = () => {
         >
           <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4">
             ~Yemmy Chats Services
-            <Castle className="mx-2 mt-1 text-accent/80" size={30} />
-            <Presentation className="mt-2 animate-spin-slow" />
+            <AiFillCompass className="mx-2 mt-2 text-accent/80 animate-spin-slow" size={30} />
+            <Presentation className="mt-3" />
           </div>
 
           <div className="grid gap-6">

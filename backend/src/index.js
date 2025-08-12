@@ -14,6 +14,9 @@ import userRoutes from "./routes/user.route.js";
 import companionRoutes from "./routes/companion.route.js";
 import notificationRoutes from "./routes/notification.route.js"; 
 import todoRoutes from "./routes/todo.route.js";
+import postRoutes from "./routes/post.route.js";
+
+
 
 +
 dotenv.config();
@@ -39,6 +42,7 @@ app.use(
 );
 
 // ✅ API routes
+app.use("/api/posts", postRoutes);
 app.use("/api/companion", companionRoutes);
 app.use("/api/todos", todoRoutes);
 app.use("/api/storeroom", storeRoomRoutes);
