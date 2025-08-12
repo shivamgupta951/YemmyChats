@@ -124,7 +124,7 @@ const PostFeed = ({ feedType = "your" }) => {
 
       <div
         ref={loaderRef}
-        className="h-8 flex items-center justify-center mt-6"
+        className="h-8 flex items-center justify-center mt-2"
       >
         {loading && posts.length > 0 && (
           <div className="loading loading-spinner" />

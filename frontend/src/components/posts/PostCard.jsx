@@ -107,7 +107,11 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   };
 
   const prevSlide = () => {
-    setCarouselIndex((i) => (i - 1 + (localPost.media?.length || 1)) % (localPost.media?.length || 1));
+    setCarouselIndex(
+      (i) =>
+        (i - 1 + (localPost.media?.length || 1)) %
+        (localPost.media?.length || 1)
+    );
   };
   const nextSlide = () => {
     setCarouselIndex((i) => (i + 1) % (localPost.media?.length || 1));
@@ -116,7 +120,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   return (
     <motion.div
       layout
-      className="max-w-2xl mx-auto bg-base-100 border rounded-xl shadow-lg overflow-hidden"
+      className="max-w-md mx-auto bg-base-100 border rounded-xl shadow-lg overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center gap-3 p-4">
@@ -155,7 +159,10 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
           className="relative bg-black/5 select-none"
           onDoubleClick={handleDoubleTap}
         >
-          <div className="aspect-video w-full overflow-hidden relative" ref={carouselRef}>
+          <div
+            className="aspect-video w-full overflow-hidden relative"
+            ref={carouselRef}
+          >
             {localPost.media.map((m, i) => (
               <motion.img
                 key={m.url}
@@ -164,7 +171,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: i === carouselIndex ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
-                className={`absolute inset-0 w-full h-full object-cover`}
+                className={`mx-6 w-[90%] h-full object-cover`}
                 style={{ display: i === carouselIndex ? "block" : "none" }}
               />
             ))}
@@ -217,7 +224,10 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
       <div className="p-4">
         <p className="mb-3">{localPost.caption}</p>
         <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1 btn btn-ghost" onClick={toggleLike}>
+          <button
+            className="flex items-center gap-1 btn btn-ghost"
+            onClick={toggleLike}
+          >
             <Heart
               className={`transition-colors ${isLiked ? "text-error" : ""}`}
               fill={isLiked ? "currentColor" : "none"}
@@ -254,15 +264,37 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
               className="overflow-hidden mt-3"
             >
               <div className="space-y-2 mb-2">
-                {(localPost.comments || []).slice().reverse().map((c) => (
-                  <div key={c._id} className="border rounded-md p-2 bg-base-200">
-                    <div className="text-sm font-medium">{c.author?.fullName}</div>
-                    <div className="text-sm">{c.text}</div>
-                    <div className="text-xs text-base-content/50">
-                      {c.createdAt ? new Date(c.createdAt).toLocaleString() : ""}
+                {(localPost.comments || [])
+                  .slice()
+                  .reverse()
+                  .map((c) => (
+                    <div
+                      key={c._id}
+                      className="border rounded-md p-2 bg-base-200"
+                    >
+                      <div className="flex">
+                        <img
+                          src={c.author?.profilePic}
+                          alt="Profile"
+                          className="size-10 rounded-full object-cover shadow-md mx-2"
+                        />
+                        <div className="flex items-center justify-between w-full">
+                          <div className="text-sm font-medium">
+                            {c.author?.fullName}
+                          </div>
+                          <div className="text-[70%] font-medium text-primary">
+                            @{c.author?.username}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-sm my-2 mx-2">{c.text}</div>
+                      <div className="text-xs text-base-content/50">
+                        {c.createdAt
+                          ? new Date(c.createdAt).toLocaleString()
+                          : ""}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
               <form onSubmit={submitComment} className="flex gap-2 items-start">
                 <input

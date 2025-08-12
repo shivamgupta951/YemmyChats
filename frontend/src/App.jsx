@@ -110,7 +110,7 @@ const App = () => {
       </Routes>
       <Toaster />
 
-      {location.pathname !== "/chat"  && <Footer />}
+      {location.pathname !== "/chat" && location.pathname !== "/post"  && <Footer />}
     </div>
   );
 };

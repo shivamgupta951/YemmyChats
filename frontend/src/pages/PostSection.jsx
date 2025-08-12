@@ -15,16 +15,17 @@ const PostSection = () => {
   const tabs = [
     { key: "your", label: "Your Posts" },
     { key: "companions", label: "Companions" },
+    { key: "explore", label: "Explore" },
   ];
 
   return (
-    <div className="min-h-screen flex justify-between items-start pt-20 bg-gradient-to-br from-base-100 via-base-200 to-base-100">
+    <div className="min-h-screen flex justify-between items-center pt-20 bg-gradient-to-br from-base-100 via-base-200 to-base-100">
       {/* Left Sidebar */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-1/4 h-screen sticky top-0 border-r border-base-300 p-4 space-y-6"
+        className="w-1/4 h-screen sticky top-0 border-r border-base-300 p-4 space-y-6 pt-20"
       >
         <div className="text-2xl font-bold text-center py-4 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-md shadow-md">
           <Sparkles className="inline-block mr-2 text-primary" />
@@ -49,7 +50,7 @@ const PostSection = () => {
       </motion.div>
 
       {/* Main Feed */}
-      <div className="flex-1 h-screen overflow-y-auto px-6 pb-20 relative">
+      <div className="flex-1 h-screen overflow-y-auto px-6 relative">
         <PostFeed feedType={feedType} />
 
         {/* Floating Create Post Button */}
