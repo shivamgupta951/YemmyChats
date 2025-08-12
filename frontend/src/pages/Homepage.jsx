@@ -1,7 +1,7 @@
 import { useChatStore } from "../store/useChatStore";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Castle, Presentation } from "lucide-react";
+import { Boxes, Castle, Presentation } from "lucide-react";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import { motion } from "framer-motion";
 import { GoHubot } from "react-icons/go";
@@ -10,7 +10,7 @@ import { PiChatsCircleBold } from "react-icons/pi";
 import { RiUserCommunityFill } from "react-icons/ri";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { AiFillCompass } from "react-icons/ai";
-
+import { MdOutlineConstruction } from "react-icons/md";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -33,6 +33,9 @@ const HomePage = () => {
     navigate(path);
     toast.success(`Welcome to ${label} Section!`);
   };
+  const ManageFriends = () => {
+    navigate("/fam");
+  };
 
   const sections = [
     { label: "Chat", path: "/chat", icon: PiChatsCircleBold },
@@ -54,7 +57,10 @@ const HomePage = () => {
         >
           <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4">
             ~Yemmy Chats Services
-            <AiFillCompass className="mx-2 mt-2 text-accent/80 animate-spin-slow" size={30} />
+            <AiFillCompass
+              className="mx-2 mt-2 text-accent/80 animate-spin-slow"
+              size={30}
+            />
             <Presentation className="mt-3" />
           </div>
 
@@ -71,19 +77,41 @@ const HomePage = () => {
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigate(section.path, section.label)}
-                  className="cursor-pointer py-6 px-10 sm:px-16 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300"
+                  className="cursor-pointer py-6 px-10 sm:px-16 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300 relative"
                 >
-                  <div className="flex justify-center items-center gap-2">
+                  <div className="flex justify-center items-center">
                     {section.label === "Yemmit" ? (
                       <>
-                        Ask Yemmit <Icon className="text-2xl mt-1" />
+                        <div className="flex justify-center items-center gap-2">
+                          Ask Yemmit <Icon className="text-xl mt-1" />
+                        </div>
                       </>
                     ) : (
                       <>
-                        {section.label} Section <Icon className="text-2xl mt-1" />
+                        <div>
+                          <div className="flex justify-center items-center gap-2">
+                            {section.label} Section
+                            <Icon className="text-2xl mt-1" />
+                          </div>
+                        </div>
                       </>
                     )}
                   </div>
+                  {section.label === "Yemmit" && (
+                    <div className="label-text absolute right-4 top-5">
+                      <MdOutlineConstruction size={18} />
+                    </div>
+                  )}
+                  {section.label === "Blog" && (
+                    <div className="label-text absolute right-4 top-5">
+                      <MdOutlineConstruction size={18} />
+                    </div>
+                  )}
+                  {section.label === "Community" && (
+                    <div className="label-text absolute right-4 top-5">
+                      <MdOutlineConstruction size={18} />
+                    </div>
+                  )}
                 </motion.div>
               );
             })}
@@ -91,36 +119,47 @@ const HomePage = () => {
         </motion.div>
 
         {/* Right Side - Logo */}
-        <motion.div
-          initial={{ x: 80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 80, duration: 1 }}
-          className="w-full lg:w-[35%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
-        >
-          <motion.div
-            animate={{ rotate: [0, 8, -8, 0] }}
-            transition={{
-              repeat: Infinity,
-              duration: 6,
-              ease: "easeInOut",
-            }}
-            className="mb-4"
-          >
-            <img
-              src={YemmyChat_logo}
-              alt="Yemmy Chats Logo"
-              className="mx-auto size-32 sm:size-40 rounded-xl shadow-md"
-            />
+        <div className="w-[40%] h-[70%] space-y-4 pt-5">
+          <motion.div initial={{y:-80 , opacity: 0}} animate={{y:0 , opacity: 1}} transition={{duration: 2.5}} className="flex justify-center items-center">
+            <button
+              className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
+              onClick={ManageFriends}
+            >
+              <Boxes size={20} />
+              Manage Companions
+            </button>
           </motion.div>
+          <motion.div
+            initial={{ x: 80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 80, duration: 1 }}
+            className="mx-10 w-full lg:w-[85%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
+          >
+            <motion.div
+              animate={{ rotate: [0, 8, -8, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 6,
+                ease: "easeInOut",
+              }}
+              className="mb-4"
+            >
+              <img
+                src={YemmyChat_logo}
+                alt="Yemmy Chats Logo"
+                className="mx-auto size-32 sm:size-40 rounded-xl shadow-md"
+              />
+            </motion.div>
 
-          <h2 className="text-3xl font-bold text-base-content mb-2">
-            Yemmy Chats
-          </h2>
-          <p className="text-base-content/60 px-4 text-md sm:text-lg">
-            A secure, fast, and modern platform to connect with your companions
-            in real time!
-          </p>
-        </motion.div>
+            <h2 className="text-3xl font-bold text-base-content mb-2">
+              Yemmy Chats
+            </h2>
+            <p className="text-base-content/60 px-4 text-md sm:text-lg">
+              A secure, fast, and modern platform to connect with your
+              companions in real time!
+            </p>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
