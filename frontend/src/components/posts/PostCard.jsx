@@ -270,9 +270,9 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
             className="textarea textarea-bordered w-full mb-3"
           />
         ) : (
-          <p className="mb-3">{localPost.caption}</p>
+          <p className="mb-3 mx-2 text-secondary/90">{localPost.caption}</p>
         )}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 border rounded-lg">
           <button
             className="flex items-center gap-1 btn btn-ghost"
             onClick={toggleLike}
@@ -288,7 +288,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
             onClick={() => setShowComments((s) => !s)}
           >
             <MessageCircle />
-            <span>{localPost.comments?.length || 0}</span>
+            <span >{localPost.comments?.length || 0}</span>
           </button>
           <button
             className="flex items-center gap-1 btn btn-ghost"
@@ -312,7 +312,8 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
               exit={{ height: 0, opacity: 0 }}
               className="overflow-hidden mt-3"
             >
-              <div className="space-y-2 mb-2">
+              <div className="space-y-2 mb-4">
+                <div className="text-center text-warning">Comments</div>
                 {(localPost.comments || [])
                   .slice()
                   .reverse()

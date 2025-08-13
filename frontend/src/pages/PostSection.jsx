@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Home, Plus, Sparkles } from "lucide-react";
 import CircularText from "../components/CircularText";
+import MetaBalls from "../components/MetaBalls";
 import { motion } from "framer-motion";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import PostFeed from "../components/posts/PostFeed";
@@ -47,6 +48,20 @@ const PostSection = () => {
             {tab.label}
           </motion.button>
         ))}
+        <div className="border py-5 rounded-2xl border-primary">
+          <MetaBalls
+            color="#ffffff"
+            cursorBallColor="#ffffff"
+            cursorBallSize={2}
+            ballCount={15}
+            animationSize={30}
+            enableMouseInteraction={true}
+            enableTransparency={true}
+            hoverSmoothness={0.05}
+            clumpFactor={1}
+            speed={0.3}
+          />
+        </div>
       </motion.div>
 
       {/* Main Feed */}
