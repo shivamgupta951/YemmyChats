@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Home, Plus, Sparkles } from "lucide-react";
+import { Bot, Home, Plus, Sparkles } from "lucide-react";
 import CircularText from "../components/CircularText";
 import MetaBalls from "../components/MetaBalls";
 import { motion } from "framer-motion";
@@ -13,6 +13,10 @@ const PostSection = () => {
   const [feedType, setFeedType] = useState("your");
   const [showCreateModal, setShowCreateModal] = useState(false);
 
+  const callyemmit = ()=> 
+  {
+    navigate("/yemmit")
+  }
   const tabs = [
     { key: "your", label: "Your Posts" },
     { key: "companions", label: "Companions" },
@@ -48,7 +52,8 @@ const PostSection = () => {
             {tab.label}
           </motion.button>
         ))}
-        <div className="border py-5 rounded-2xl border-primary">
+        <div className="border py-2 rounded-2xl border-primary shadow-md shadow-primary">
+          <div className="text-center flex justify-center items-center">Yemmit <Bot className="mx-1"/> at your service!</div>
           <MetaBalls
             color="#ffffff"
             cursorBallColor="#ffffff"
@@ -61,6 +66,7 @@ const PostSection = () => {
             clumpFactor={1}
             speed={0.3}
           />
+          <div className="flex justify-end items-center mx-3"><button className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-primary-content" onClick={callyemmit}>click here</button></div>
         </div>
       </motion.div>
 
