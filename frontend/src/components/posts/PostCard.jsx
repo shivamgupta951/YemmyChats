@@ -147,7 +147,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   return (
     <motion.div
       layout
-      className="max-w-xl mx-auto bg-base-100 border rounded-xl shadow-lg overflow-hidden"
+      className="max-w-xl mx-auto bg-base-300 border border-warning/70 rounded-xl shadow-md shadow-warning/30 overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center gap-3 p-4">
