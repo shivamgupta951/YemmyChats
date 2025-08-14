@@ -4,6 +4,7 @@ import { X, ImagePlus } from "lucide-react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../lib/axios";
 import { useAuthStore } from "../../store/useAuthStore";
+import TrueFocus from "../TrueFocus";
 
 const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
   const { authUser } = useAuthStore();
@@ -37,6 +38,9 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Post created");
+      setTimeout(() => {
+        window.location.reload();
+      }, 900); 
       onCreated(res.data.post);
       onClose();
     } catch (err) {
@@ -115,7 +119,18 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
             onClick={submit}
             disabled={uploading}
           >
-            {uploading ? "Uploading..." : "Post"}
+            {uploading ? (
+              <TrueFocus
+                sentence="Uploading post"
+                manualMode={false}
+                blurAmount={5}
+                borderColor="red"
+                animationDuration={2}
+                pauseBetweenAnimations={1}
+              />
+            ) : (
+              "Post"
+            )}
           </button>
         </div>
       </motion.div>
