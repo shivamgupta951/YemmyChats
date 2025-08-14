@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
@@ -24,6 +24,21 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
   const [editText, setEditText] = useState(post.caption || "");
   const isLiked = localPost.likes?.includes(authUser?._id);
   const carouselRef = useRef(null);
+  const videoRefs = useRef([]);
+
+  // Autoplay video when visible
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === carouselIndex) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          video.currentTime = 0;
+        }
+      }
+    });
+  }, [carouselIndex]);
 
   // --- LIKE ---
   const toggleLike = async () => {
@@ -204,18 +219,43 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
             className="aspect-video w-full overflow-hidden relative"
             ref={carouselRef}
           >
-            {localPost.media.map((m, i) => (
-              <motion.img
-                key={m.url}
-                src={m.url}
-                alt={localPost.caption || "post media"}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: i === carouselIndex ? 1 : 0 }}
-                transition={{ duration: 0.4 }}
-                className={`w-[100%] h-full object-cover`}
-                style={{ display: i === carouselIndex ? "block" : "none" }}
-              />
-            ))}
+            {localPost.media.map((m, i) => {
+              const fileUrl = m.url;
+              const isVideo = /\.(mp4|webm|ogg)$/i.test(fileUrl);
+              return isVideo ? (
+                <motion.video
+                  key={fileUrl}
+                  src={fileUrl}
+                  ref={(el) => (videoRefs.current[i] = el)}
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: i === carouselIndex ? 1 : 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full h-full object-cover"
+                  style={{ display: i === carouselIndex ? "block" : "none" }}
+                />
+              ) : (
+                <motion.img
+                  key={fileUrl}
+                  src={fileUrl}
+                  alt={localPost.caption || "post media"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: i === carouselIndex ? 1 : 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="w-full h-full object-cover"
+                  style={{ display: i === carouselIndex ? "block" : "none" }}
+                />
+              );
+            })}
+
+            {/* Page Index */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 text-white px-3 py-1 rounded-full text-xs">
+              {carouselIndex + 1} / {localPost.media.length}
+            </div>
+
             {/* Like Animation */}
             <AnimatePresence>
               {showLikeAnim && (
@@ -231,30 +271,21 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
                 </motion.div>
               )}
             </AnimatePresence>
+
             {localPost.media.length > 1 && (
               <>
                 <button
                   onClick={prevSlide}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-base-100/60 p-2 rounded-full shadow"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-base-100/60 p-2 rounded-full shadow bg-base-300"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-base-100/60 p-2 rounded-full shadow"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-base-100/60 p-2 rounded-full shadow bg-base-300"
                 >
                   <ChevronRight size={20} />
                 </button>
-                <div className="absolute bottom-3 w-full flex justify-center gap-1">
-                  {localPost.media.map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-2 h-2 rounded-full ${
-                        i === carouselIndex ? "bg-primary" : "bg-white/50"
-                      }`}
-                    />
-                  ))}
-                </div>
               </>
             )}
           </div>
@@ -272,6 +303,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
         ) : (
           <p className="mb-3 mx-2 text-secondary/90">{localPost.caption}</p>
         )}
+
         <div className="flex items-center gap-4 border rounded-lg">
           <button
             className="flex items-center gap-1 btn btn-ghost"
@@ -288,7 +320,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
             onClick={() => setShowComments((s) => !s)}
           >
             <MessageCircle />
-            <span >{localPost.comments?.length || 0}</span>
+            <span>{localPost.comments?.length || 0}</span>
           </button>
           <button
             className="flex items-center gap-1 btn btn-ghost"
