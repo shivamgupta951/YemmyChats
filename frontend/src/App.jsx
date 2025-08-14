@@ -21,6 +21,7 @@ import CommunitySection from "./pages/CommunitySection";
 import BlogSection from "./pages/BlogSection";
 import PostSection from "./pages/PostSection";
 import Yemmit from "./pages/Yemmit";
+import Achivement from "./pages/Achivement";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -98,6 +99,10 @@ const App = () => {
         <Route
           path="/profile"
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/achivement"
+          element={authUser ? <Achivement /> : <Navigate to="/login" />}
         />
         <Route
           path="/contact"

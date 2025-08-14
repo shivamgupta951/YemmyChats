@@ -1,7 +1,7 @@
 import { useChatStore } from "../store/useChatStore";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Boxes, Castle, Presentation } from "lucide-react";
+import { Boxes, Castle, Presentation, Trophy } from "lucide-react";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import { motion } from "framer-motion";
 import { GoHubot } from "react-icons/go";
@@ -38,11 +38,12 @@ const HomePage = () => {
   };
 
   const sections = [
-    { label: "Chat", path: "/chat", icon: PiChatsCircleBold },
-    { label: "Blog", path: "/blog", icon: FaBlogger },
-    { label: "Community", path: "/community", icon: RiUserCommunityFill },
-    { label: "Post", path: "/post", icon: BsFillPostcardHeartFill },
+    { label: "Chats", path: "/chat", icon: PiChatsCircleBold },
+    { label: "Blogs", path: "/blog", icon: FaBlogger },
+    { label: "Communitys", path: "/community", icon: RiUserCommunityFill },
+    { label: "Posts", path: "/post", icon: BsFillPostcardHeartFill },
     { label: "Yemmit", path: "/yemmit", icon: GoHubot },
+    { label: "Achivements", path: "/achivement", icon: Trophy },
   ];
 
   return (
@@ -64,7 +65,7 @@ const HomePage = () => {
             <Presentation className="mt-3" />
           </div>
 
-          <div className="grid gap-6">
+          <div className="grid gap-3">
             {sections.map((section, i) => {
               const Icon = section.icon;
               return (
@@ -77,7 +78,7 @@ const HomePage = () => {
                   whileHover={{ scale: 1.06 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleNavigate(section.path, section.label)}
-                  className="cursor-pointer py-6 px-10 sm:px-16 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300 relative"
+                  className="cursor-pointer py-5 px-10 sm:px-16 bg-base-100 shadow-xl hover:shadow-2xl rounded-3xl border border-error/30 hover:border-error/60 text-accent font-bold text-2xl text-center transition-all ease-in-out duration-300 relative"
                 >
                   <div className="flex justify-center items-center">
                     {section.label === "Yemmit" ? (
@@ -90,7 +91,7 @@ const HomePage = () => {
                       <>
                         <div>
                           <div className="flex justify-center items-center gap-2">
-                            {section.label} Section
+                            {section.label}
                             <Icon className="text-2xl mt-1" />
                           </div>
                         </div>
@@ -102,12 +103,17 @@ const HomePage = () => {
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
-                  {section.label === "Blog" && (
+                  {section.label === "Blogs" && (
                     <div className="label-text absolute right-4 top-5" title="Work in Progress!">
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
-                  {section.label === "Community" && (
+                  {section.label === "Communitys" && (
+                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
+                      <MdOutlineConstruction size={18} />
+                    </div>
+                  )}
+                  {section.label === "Achivements" && (
                     <div className="label-text absolute right-4 top-5" title="Work in Progress!">
                       <MdOutlineConstruction size={18} />
                     </div>

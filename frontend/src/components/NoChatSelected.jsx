@@ -1,11 +1,15 @@
-import { Boxes, Home, MessageSquare } from "lucide-react";
+import { Bot, Boxes, Home, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import MetaBalls from "../components/MetaBalls";
 
 const NoChatSelected = () => {
   const navigate = useNavigate();
   const ManageFriends = () => {
     navigate("/fam");
+  };
+  const callyemmit = () => {
+    navigate("/yemmit");
   };
 
   return (
@@ -40,9 +44,9 @@ const NoChatSelected = () => {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="w-full flex flex-1 flex-col items-center justify-center p-16 bg-base-100/50"
+        className="w-full flex flex-1 flex-col items-center justify-center p-16 pt-5 bg-base-100/50"
       >
-        <div className="max-w-md text-center space-y-6">
+        <div className="max-w-md text-center space-y-4 mt-5">
           <div className="flex justify-center gap-4 mb-4">
             <div className="relative">
               <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center animate-bounce">
@@ -55,6 +59,33 @@ const NoChatSelected = () => {
           <p className="text-base-content/60">
             Select a conversation from the sidebar to start chatting
           </p>
+        </div>
+        <div className="border py-2 rounded-2xl border-primary shadow-md shadow-primary w-[60%] mt-10">
+          <div className="text-center flex justify-center items-center">
+            Yemmit <Bot className="mx-1" /> at your service!
+          </div>
+          <div className="py-2">
+            <MetaBalls
+              color="#ffffff"
+              cursorBallColor="#ffffff"
+              cursorBallSize={2}
+              ballCount={15}
+              animationSize={30}
+              enableMouseInteraction={true}
+              enableTransparency={true}
+              hoverSmoothness={0.05}
+              clumpFactor={1}
+              speed={0.3}
+            />
+          </div>
+          <div className="flex justify-end items-center mx-3">
+            <button
+              className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-primary-content"
+              onClick={callyemmit}
+            >
+              click here
+            </button>
+          </div>
         </div>
       </motion.div>
     </div>
