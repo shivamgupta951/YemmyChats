@@ -24,13 +24,13 @@ const PostSection = () => {
   ];
 
   return (
-    <div className="min-h-screen flex justify-between items-center pt-20 bg-gradient-to-br from-base-100 via-base-200 to-base-100">
+    <div className="min-h-screen flex justify-between items-center bg-gradient-to-br from-base-100 via-base-200 to-base-100">
       {/* Left Sidebar */}
       <motion.div
         initial={{ x: -50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-1/4 h-screen sticky top-0 border-r border-base-300 p-4 space-y-6 pt-20"
+        className="w-1/4 h-screen sticky top-0 border-r border-base-300 p-4 space-y-6 pt-24"
       >
         <div className="text-2xl font-bold text-center py-4 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-md shadow-md">
           <Sparkles className="inline-block mr-2 text-primary" />
@@ -80,7 +80,7 @@ const PostSection = () => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 120 }}
-            className="btn btn-primary btn-sm absolute top-2 right-8 shadow-lg hover:scale-110 flex justify-center items-center"
+            className="btn btn-primary btn-sm absolute top-20 right-8 shadow-lg hover:scale-110 flex justify-center items-center"
             onClick={() => setShowCreateModal(true)}
           >
             Create Post
@@ -94,7 +94,7 @@ const PostSection = () => {
         initial={{ x: 50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-1/4 h-screen sticky top-0 border-l border-base-300 px-4 pt-10"
+        className="w-1/4 h-screen sticky top-0 border-l border-base-300 px-4 pt-20"
       >
         <div className="flex justify-center items-center my-5">
           <button

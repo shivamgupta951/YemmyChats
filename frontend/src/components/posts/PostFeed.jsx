@@ -85,7 +85,7 @@ const PostFeed = ({ feedType = "your" }) => {
   };
 
   return (
-    <div className="p-10">
+    <div className="p-10 pt-20">
       <div className="mb-6">
         <h1 className="text-2xl font-bold capitalize">Feed — {feedType}</h1>
       </div>
