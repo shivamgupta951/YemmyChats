@@ -2,6 +2,7 @@ import { Bot, Boxes, Home, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import MetaBalls from "../components/MetaBalls";
+import TrueFocus from "./TrueFocus";
 
 const NoChatSelected = () => {
   const navigate = useNavigate();
@@ -22,6 +23,18 @@ const NoChatSelected = () => {
         transition={{ duration: 0.5 }}
         className="p-3 flex justify-end border-b border-base-300"
       >
+        <div className="flex justify-start mx-2 items-center w-full">
+          <TrueFocus
+            sentence="YemmyChats Services!"
+            manualMode={false}
+            blurAmount={2}
+            borderColor="green"
+            animationDuration={1}
+            pauseBetweenAnimations={2}
+            textSize="sm"
+          />
+        </div>
+
         <button
           className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight mx-3"
           onClick={ManageFriends}

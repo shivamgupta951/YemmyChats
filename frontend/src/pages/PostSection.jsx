@@ -7,16 +7,16 @@ import { motion } from "framer-motion";
 import YemmyChat_logo from "../assets/YemmyChat_logo.png";
 import PostFeed from "../components/posts/PostFeed";
 import CreatePost from "../components/posts/CreatePost";
+import TrueFocus from "../components/TrueFocus";
 
 const PostSection = () => {
   const navigate = useNavigate();
   const [feedType, setFeedType] = useState("your");
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const callyemmit = ()=> 
-  {
-    navigate("/yemmit")
-  }
+  const callyemmit = () => {
+    navigate("/yemmit");
+  };
   const tabs = [
     { key: "your", label: "Your Posts" },
     { key: "companions", label: "Companions" },
@@ -32,6 +32,17 @@ const PostSection = () => {
         transition={{ duration: 0.5 }}
         className="w-1/4 h-screen sticky top-0 border-r border-base-300 p-4 space-y-6 pt-24"
       >
+        <div className="w-full flex justify-center items-center">
+          <TrueFocus
+            sentence="YemmyChats Services!"
+            manualMode={false}
+            blurAmount={2}
+            borderColor="green"
+            animationDuration={1}
+            pauseBetweenAnimations={2}
+            textSize="sm"
+          />
+        </div>
         <div className="text-2xl font-bold text-center py-4 rounded-xl bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-md shadow-md">
           <Sparkles className="inline-block mr-2 text-primary" />
           Post Tabs
@@ -53,7 +64,9 @@ const PostSection = () => {
           </motion.button>
         ))}
         <div className="border py-2 rounded-2xl border-primary shadow-md shadow-primary">
-          <div className="text-center flex justify-center items-center">Yemmit <Bot className="mx-1"/> at your service!</div>
+          <div className="text-center flex justify-center items-center">
+            Yemmit <Bot className="mx-1" /> at your service!
+          </div>
           <MetaBalls
             color="#ffffff"
             cursorBallColor="#ffffff"
@@ -66,7 +79,14 @@ const PostSection = () => {
             clumpFactor={1}
             speed={0.3}
           />
-          <div className="flex justify-end items-center mx-3"><button className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-primary-content" onClick={callyemmit}>click here</button></div>
+          <div className="flex justify-end items-center mx-3">
+            <button
+              className="btn btn-sm bg-gradient-to-r from-primary to-secondary text-primary-content"
+              onClick={callyemmit}
+            >
+              click here
+            </button>
+          </div>
         </div>
       </motion.div>
 

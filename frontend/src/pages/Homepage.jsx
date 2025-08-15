@@ -11,6 +11,7 @@ import { RiUserCommunityFill } from "react-icons/ri";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { AiFillCompass } from "react-icons/ai";
 import { MdOutlineConstruction } from "react-icons/md";
+import TextType from "../components/TextType";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -99,22 +100,34 @@ const HomePage = () => {
                     )}
                   </div>
                   {section.label === "Yemmit" && (
-                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
+                    <div
+                      className="label-text absolute right-4 top-5"
+                      title="Work in Progress!"
+                    >
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
                   {section.label === "Blogs" && (
-                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
+                    <div
+                      className="label-text absolute right-4 top-5"
+                      title="Work in Progress!"
+                    >
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
                   {section.label === "Communitys" && (
-                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
+                    <div
+                      className="label-text absolute right-4 top-5"
+                      title="Work in Progress!"
+                    >
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
                   {section.label === "Achivements" && (
-                    <div className="label-text absolute right-4 top-5" title="Work in Progress!">
+                    <div
+                      className="label-text absolute right-4 top-5"
+                      title="Work in Progress!"
+                    >
                       <MdOutlineConstruction size={18} />
                     </div>
                   )}
@@ -126,7 +139,12 @@ const HomePage = () => {
 
         {/* Right Side - Logo */}
         <div className="w-[40%] h-[70%] space-y-4 pt-5">
-          <motion.div initial={{y:-80 , opacity: 0}} animate={{y:0 , opacity: 1}} transition={{duration: 2.5}} className="flex justify-center items-center">
+          <motion.div
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 2.5 }}
+            className="flex justify-center items-center"
+          >
             <button
               className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
               onClick={ManageFriends}
@@ -160,9 +178,18 @@ const HomePage = () => {
             <h2 className="text-3xl font-bold text-base-content mb-2">
               Yemmy Chats
             </h2>
-            <p className="text-base-content/60 px-4 text-md sm:text-lg">
-              A secure, fast, and modern platform to connect with your
-              companions in real time!
+            <p className="text-base-content/60 px-4 text-md sm:text-lg py-4">
+              <TextType
+                text={[
+                  "A secure, fast, and modern platform to connect with your companions in real time!",
+                  "Stay connected anytime, anywhere.",
+                ]}
+                typingSpeed={70}
+                pauseDuration={1500}
+                deletingSpeed={30}
+                showCursor={true}
+                cursorCharacter="~YC!"
+              />
             </p>
           </motion.div>
         </div>
