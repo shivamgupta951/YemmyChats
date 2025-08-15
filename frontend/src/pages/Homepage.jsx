@@ -12,6 +12,7 @@ import { BsFillPostcardHeartFill } from "react-icons/bs";
 import { AiFillCompass } from "react-icons/ai";
 import { MdOutlineConstruction } from "react-icons/md";
 import TextType from "../components/TextType";
+import { BackgroundLines } from "../components/background-lines";
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -59,10 +60,12 @@ const HomePage = () => {
         >
           <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4">
             ~Yemmy Chats Services
-            <AiFillCompass
-              className="mx-2 mt-2 text-accent/80 animate-spin-slow"
-              size={30}
-            />
+            <div className="animate-bounce">
+              <AiFillCompass
+                className="mx-2 mt-2 text-accent/80 animate-spin-slow"
+                size={30}
+              />
+            </div>
             <Presentation className="mt-3" />
           </div>
 
@@ -138,7 +141,7 @@ const HomePage = () => {
         </motion.div>
 
         {/* Right Side - Logo */}
-        <div className="w-[40%] h-[70%] space-y-4 pt-5">
+        <div className="w-[40%] h-[70%] space-y-4 pt-5 relative">
           <motion.div
             initial={{ y: -80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -153,45 +156,47 @@ const HomePage = () => {
               Manage Companions
             </button>
           </motion.div>
-          <motion.div
-            initial={{ x: 80, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 80, duration: 1 }}
-            className="mx-10 w-full lg:w-[85%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
-          >
+          <BackgroundLines>
             <motion.div
-              animate={{ rotate: [0, 8, -8, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 6,
-                ease: "easeInOut",
-              }}
-              className="mb-4"
+              initial={{ x: 80, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 80, duration: 1 }}
+              className="mx-10 w-full lg:w-[85%] bg-accent/20 border border-base-300 rounded-3xl shadow-lg text-center p-6 animate-pulse-slower hover:scale-105 transition-all duration-500 ease-in-out"
             >
-              <img
-                src={YemmyChat_logo}
-                alt="Yemmy Chats Logo"
-                className="mx-auto size-32 sm:size-40 rounded-xl shadow-md"
-              />
-            </motion.div>
+              <motion.div
+                animate={{ rotate: [0, 8, -8, 0] }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 6,
+                  ease: "easeInOut",
+                }}
+                className="mb-4"
+              >
+                <img
+                  src={YemmyChat_logo}
+                  alt="Yemmy Chats Logo"
+                  className="mx-auto size-32 sm:size-40 rounded-xl shadow-md"
+                />
+              </motion.div>
 
-            <h2 className="text-3xl font-bold text-base-content mb-2">
-              Yemmy Chats
-            </h2>
-            <p className="text-base-content/60 px-4 text-md sm:text-lg py-4">
-              <TextType
-                text={[
-                  "A secure, fast, and modern platform to connect with your companions in real time!",
-                  "Stay connected anytime, anywhere.",
-                ]}
-                typingSpeed={70}
-                pauseDuration={1500}
-                deletingSpeed={30}
-                showCursor={true}
-                cursorCharacter="~YC!"
-              />
-            </p>
-          </motion.div>
+              <h2 className="text-3xl font-bold text-base-content mb-2">
+                Yemmy Chats
+              </h2>
+              <p className="text-base-content/60 px-4 text-md sm:text-lg py-4">
+                <TextType
+                  text={[
+                    "A secure, fast, and modern platform to connect with your companions in real time!",
+                    "Stay connected anytime, anywhere and anybody with Yemmy Chats 🚀.",
+                  ]}
+                  typingSpeed={70}
+                  pauseDuration={1500}
+                  deletingSpeed={30}
+                  showCursor={true}
+                  cursorCharacter="~YC!"
+                />
+              </p>
+            </motion.div>
+          </BackgroundLines>
         </div>
       </div>
     </div>
