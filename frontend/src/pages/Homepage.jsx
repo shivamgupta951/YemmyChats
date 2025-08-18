@@ -13,6 +13,11 @@ import { AiFillCompass } from "react-icons/ai";
 import { MdOutlineConstruction } from "react-icons/md";
 import TextType from "../components/TextType";
 import { BackgroundLines } from "../components/background-lines";
+import { IoFootball } from "react-icons/io5";
+import { GiNetworkBars } from "react-icons/gi";
+import { RiMenFill } from "react-icons/ri";
+import { ImEnvelop } from "react-icons/im";
+
 
 const sectionVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -58,15 +63,34 @@ const HomePage = () => {
           transition={{ type: "spring", stiffness: 80, duration: 1 }}
           className="space-y-6 max-w-xl"
         >
-          <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4">
+          <div className="text-3xl flex justify-center text-warning/70 font-semibold tracking-tight underline mb-4 relative">
             ~Yemmy Chats Services
             <div className="animate-bounce">
-              <AiFillCompass
-                className="mx-2 mt-2 text-accent/80 animate-spin-slow"
+              <motion.div 
+              className="z-50"
+                initial={{ x: 0 , y: 0}}
+                animate={{ x: [0,70,0,60,0,70,0],y: [0,100,200,300,380,500,600], rotate: 360 }}
+                transition={{
+                  duration: 30,
+                  delay: 5,
+                  repeat: Infinity,
+                  repeatDelay: 5,
+                  ease: "easeInOut",
+                }}
+              >
+                <IoFootball
+                  className="mx-2 mt-2 text-error/70 animate-spin-slow z-50"
+                  size={30}
+                />
+              </motion.div>
+            </div>
+            <div className="animate-bounce">
+              <IoFootball
+                className="mx-2 mt-2 text-error/70 animate-spin-slow absolute right-0"
                 size={30}
               />
             </div>
-            <Presentation className="mt-3" />
+            <ImEnvelop className="mt-1"/>
           </div>
 
           <div className="grid gap-3">
@@ -149,7 +173,7 @@ const HomePage = () => {
             className="flex justify-center items-center"
           >
             <button
-              className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight"
+              className="btn btn-outline btn-accent btn-sm flex items-center gap-2 tracking-tight cursor-pointer"
               onClick={ManageFriends}
             >
               <Boxes size={20} />

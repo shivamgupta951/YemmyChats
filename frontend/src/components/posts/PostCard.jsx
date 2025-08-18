@@ -356,7 +356,7 @@ const PostCard = ({ post, onUpdated = () => {}, onDeleted = () => {} }) => {
                     >
                       <div className="flex">
                         <img
-                          src={c.author?.profilePic}
+                          src={c.author?.profilePic || "/avatar.png"}
                           alt="Profile"
                           className="size-10 rounded-full object-cover shadow-md mx-2"
                         />
