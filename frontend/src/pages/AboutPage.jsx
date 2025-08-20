@@ -6,6 +6,18 @@ import {
   Brain,
   ArrowLeft,
   ChevronRight,
+  MessageCircle,
+  Users,
+  BookOpen,
+  PenSquare,
+  Trophy,
+  Bot,
+  Palette,
+  Bell,
+  Music,
+  Share2,
+  Lock,
+  FolderKanban,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
@@ -13,26 +25,20 @@ import storeRoomImage from "../assets/storeRoomImage.png";
 import chatboxImage from "../assets/chatboxImage.png";
 
 const featureList = [
-  {
-    title: "Secure Messaging",
-    icon: "🔒",
-    desc: "End-to-end encrypted real-time chats",
-  },
-  {
-    title: "Media Sharing",
-    icon: "🖼️",
-    desc: "Encrypted image and file transfers",
-  },
-  {
-    title: "Chat Groups",
-    icon: "👨‍👩‍👧‍👦",
-    desc: "Family & companion group spaces",
-  },
-  {
-    title: "Themes",
-    icon: "🎨",
-    desc: "Personalize your chat experience",
-  },
+  { title: "Secure Chats", icon: <MessageCircle />, desc: "End-to-end encrypted real-time messaging" },
+  { title: "Blogs", icon: <BookOpen />, desc: "Read, share and explore ideas through blogs" },
+  { title: "Communities", icon: <Users />, desc: "Join groups & communities with shared interests" },
+  { title: "Posts", icon: <PenSquare />, desc: "Share images, videos & text posts" },
+  { title: "Ask Yemmit", icon: <Bot />, desc: "Your smart assistant for Q&A & guidance" },
+  { title: "Achievements", icon: <Trophy />, desc: "Unlock milestones & badges as you engage" },
+  { title: "Companions", icon: <Users />, desc: "Add companions & connect with friends easily" },
+  { title: "StoreRoom", icon: <FolderKanban />, desc: "Save shared files, media & notes privately" },
+  { title: "Group Chats", icon: <Users />, desc: "Create companion-only group conversations" },
+  { title: "Themes", icon: <Palette />, desc: "Personalize UI with dynamic themes" },
+  { title: "Voice Messages", icon: <Music />, desc: "Send encrypted audio messages with waveform" },
+  { title: "Notifications", icon: <Bell />, desc: "Email & in-app alerts for new messages" },
+  { title: "Media Sharing", icon: <Share2 />, desc: "Seamless image, video & file sharing" },
+  { title: "Privacy First", icon: <Lock />, desc: "Your data stays encrypted & secure" },
 ];
 
 const pricingPlans = [
@@ -60,8 +66,9 @@ const futurePlans = [
   "AI Smart Suggestions",
   "Group Video Calls",
   "Multi-device Sync",
-  "Voice Messages",
   "Auto-Translation",
+  "In-app Mini Games",
+  "Marketplace & Plugins",
 ];
 
 const AboutPage = () => {
@@ -99,10 +106,11 @@ const AboutPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent leading-tight">
-                Reimagining <br />Digital Connections
+                Reimagining <br /> Digital Connections
               </h1>
               <p className="text-lg text-base-content/70 mt-6 max-w-md">
-                Yemmy Chats brings people together with secure, joyful communication designed for real life.
+                Yemmy Chats unites Chats, Communities, Blogs, Posts, and more —
+                all in one secure, fun and modern platform ✨
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -138,8 +146,6 @@ const AboutPage = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true, margin: "-100px" }}
       >
-        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-4/5 h-32 bg-primary/5 blur-3xl rounded-full"></div>
-
         <div className="card bg-base-100 shadow-xl p-8 sm:p-12 rounded-3xl relative overflow-hidden">
           <motion.div
             className="text-center mb-16"
@@ -148,11 +154,11 @@ const AboutPage = () => {
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Features That Matter</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">All-in-One Features</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featureList.map((feature, i) => (
               <motion.div
                 key={i}
@@ -163,10 +169,10 @@ const AboutPage = () => {
                 whileHover={{ y: -8 }}
                 className="card bg-base-100 shadow-md p-6 text-center transition-all duration-300 rounded-xl"
               >
-                <div className="shadow-inner w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-2xl mb-4 bg-base-100">
+                <div className="w-14 h-14 mx-auto rounded-full flex items-center justify-center text-primary mb-4 bg-base-200">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
                 <p className="text-base-content/70 text-sm">{feature.desc}</p>
               </motion.div>
             ))}
@@ -182,60 +188,57 @@ const AboutPage = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="relative">
-          <div className="absolute -inset-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl transform rotate-1 blur-lg opacity-70"></div>
-          <div className="card bg-base-100 shadow-xl p-8 sm:p-12 relative rounded-3xl">
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-12">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-2">Simple Pricing</h2>
-                <p className="text-base-content/70 max-w-lg">Choose the plan that fits your needs</p>
-              </div>
-              <div className="px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-sm font-medium shadow-md flex items-center gap-2">
-                <Zap className="h-4 w-4" /> Coming Soon
-              </div>
+        <div className="card bg-base-100 shadow-xl p-8 sm:p-12 relative rounded-3xl">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 mb-12">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-2">Simple Pricing</h2>
+              <p className="text-base-content/70 max-w-lg">Choose the plan that fits your needs</p>
             </div>
+            <div className="px-4 py-2 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-sm font-medium shadow-md flex items-center gap-2">
+              <Zap className="h-4 w-4" /> Coming Soon
+            </div>
+          </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {pricingPlans.map((plan, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.15 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className={`card bg-base-100 shadow-md p-6 relative transition-all duration-300 ${
-                    plan.popular ? "ring-2 ring-primary/30" : ""
-                  }`}
-                >
-                  {plan.popular && (
-                    <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                      POPULAR
-                    </div>
-                  )}
-                  <h3 className="text-2xl font-bold mb-2">{plan.duration}</h3>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                      ₹{plan.price}
-                    </span>
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricingPlans.map((plan, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.15 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                className={`card bg-base-100 shadow-md p-6 relative transition-all duration-300 ${
+                  plan.popular ? "ring-2 ring-primary/30" : ""
+                }`}
+              >
+                {plan.popular && (
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    POPULAR
                   </div>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, j) => (
-                      <li key={j} className="flex items-start gap-2">
-                        <CheckCircle className="text-primary h-5 w-5 flex-shrink-0" />
-                        <span className="text-base-content/80">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    className="btn btn-outline w-full"
-                  >
-                    Get Started
-                  </motion.button>
-                </motion.div>
-              ))}
-            </div>
+                )}
+                <h3 className="text-2xl font-bold mb-2">{plan.duration}</h3>
+                <div className="mb-6">
+                  <span className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    ₹{plan.price}
+                  </span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, j) => (
+                    <li key={j} className="flex items-start gap-2">
+                      <CheckCircle className="text-primary h-5 w-5 flex-shrink-0" />
+                      <span className="text-base-content/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="btn btn-outline w-full"
+                >
+                  Get Started
+                </motion.button>
+              </motion.div>
+            ))}
           </div>
         </div>
       </motion.section>
@@ -248,54 +251,51 @@ const AboutPage = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="relative">
-          <div className="absolute -inset-4 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-3xl transform -rotate-1 blur-lg opacity-70"></div>
-          <div className="card bg-base-100 shadow-xl p-8 sm:p-12 relative overflow-hidden rounded-3xl">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-                viewport={{ once: true }}
-              >
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6">What's Coming Next</h2>
-                <p className="text-base-content/70 mb-8 max-w-lg">
-                  We're constantly innovating to bring you the best communication experience.
-                </p>
-                <ul className="space-y-4">
-                  {futurePlans.map((item, i) => (
-                    <motion.li
-                      key={i}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: i * 0.05 }}
-                      viewport={{ once: true }}
-                      whileHover={{ x: 5 }}
-                      className="card bg-base-100 shadow-md px-5 py-4 flex items-center gap-4"
-                    >
-                      <div className="shadow-inner p-2 rounded-full bg-base-100">
-                        <Brain className="text-secondary h-5 w-5" />
-                      </div>
-                      <span className="font-medium">{item}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
+        <div className="card bg-base-100 shadow-xl p-8 sm:p-12 relative overflow-hidden rounded-3xl">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl sm:text-4xl font-bold mb-6">What's Coming Next</h2>
+              <p className="text-base-content/70 mb-8 max-w-lg">
+                We're constantly innovating to bring you the best communication experience.
+              </p>
+              <ul className="space-y-4">
+                {futurePlans.map((item, i) => (
+                  <motion.li
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    viewport={{ once: true }}
+                    whileHover={{ x: 5 }}
+                    className="card bg-base-100 shadow-md px-5 py-4 flex items-center gap-4"
+                  >
+                    <div className="shadow-inner p-2 rounded-full bg-base-100">
+                      <Brain className="text-secondary h-5 w-5" />
+                    </div>
+                    <span className="font-medium">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="shadow-inner p-3 rounded-2xl overflow-hidden bg-base-100"
-              >
-                <img
-                  src={storeRoomImage}
-                  alt="Future Preview"
-                  className="w-full h-auto rounded-xl transform -rotate-1 hover:rotate-0 transition-transform duration-500"
-                />
-              </motion.div>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="shadow-inner p-3 rounded-2xl overflow-hidden bg-base-100"
+            >
+              <img
+                src={storeRoomImage}
+                alt="Future Preview"
+                className="w-full h-auto rounded-xl transform -rotate-1 hover:rotate-0 transition-transform duration-500"
+              />
+            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -309,11 +309,9 @@ const AboutPage = () => {
         className="relative"
       >
         <div className="card bg-base-100 shadow-xl p-12 text-center relative overflow-hidden rounded-3xl">
-          <div className="absolute -top-32 left-1/2 transform -translate-x-1/2 w-64 h-64 rounded-full bg-primary/10 blur-xl"></div>
-
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Join Us?</h2>
           <p className="text-xl text-base-content/70 max-w-2xl mx-auto mb-10">
-            Be part of the revolution in digital communication
+            Be part of the revolution in digital communication 🚀
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4">
