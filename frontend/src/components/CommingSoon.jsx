@@ -45,13 +45,13 @@ const CommingSoon = ({ title }) => {
                 ease: "easeInOut",
                 repeatDelay: 2,
               }}
-              className="flex justify-center items-center py-16 border px-52 text-warning bg-gradient-to-l from-error rounded-2xl"
+              className="flex justify-center items-center py-16 border px-52 text-base-200/80 bg-gradient-to-l from-error rounded-2xl"
             >
               <div className="space-y-1">
-                <div className="mx-2 text-primary text-3xl font-extrabold flex justify-center items-center">
+                <div className="mx-2 text-base-content text-3xl font-extrabold flex justify-center items-center tracking-wide">
                   {title}
                 </div>
-                <div className="flex justify-center items-center">Comming Soon!</div>
+                <div className="flex justify-center items-center font-semibold tracking-tighter">Comming Soon!</div>
               </div>
             </motion.div>
           </ElectricBorder>
