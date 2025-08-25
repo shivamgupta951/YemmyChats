@@ -92,7 +92,7 @@ const AboutPage = () => {
           className="btn btn-sm absolute -top-4 right-0 z-10 shadow-md"
         >
           <ArrowLeft size={16} />
-          Back to {authUser ? "Chats" : "Login"}
+          Back to {authUser ? "Home" : "Login"}
         </motion.button>
 
         <div className="relative overflow-hidden card bg-base-100 shadow-xl pt-16 pb-24 px-8 sm:px-16 rounded-3xl">
