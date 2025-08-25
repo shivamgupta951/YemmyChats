@@ -3,7 +3,7 @@ import CommingSoon from "../components/CommingSoon";
 const Achivement = () => {
   return (
     <div>
-      <CommingSoon/>
+      <CommingSoon title="Achivement Section"/>
     </div>
   );
 };

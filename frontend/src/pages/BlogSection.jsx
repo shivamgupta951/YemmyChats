@@ -3,7 +3,7 @@ import CommingSoon from "../components/CommingSoon";
 const BlogSection = () => {
   return (
     <div>
-      <CommingSoon />
+      <CommingSoon title="Blog Section"/>
     </div>
   );
 };

@@ -8,7 +8,7 @@ const CommunitySection = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <CommingSoon />
+      <CommingSoon title="Community Section"/>
     </div>
   );
 };
