@@ -6,7 +6,7 @@ import ElectricBorder from "./ElectricBorder";
 import { Button } from "./moving-border";
 import { BackgroundBeamsWithCollision } from "./background-beams-with-collision";
 
-const CommingSoon = ({title}) => {
+const CommingSoon = ({ title }) => {
   const navigate = useNavigate();
   const NavigateHome = () => {
     navigate("/");
@@ -45,10 +45,14 @@ const CommingSoon = ({title}) => {
                 ease: "easeInOut",
                 repeatDelay: 2,
               }}
-              className="flex justify-center items-center py-16 border px-60 text-warning bg-gradient-to-l from-error rounded-2xl"
+              className="flex justify-center items-center py-16 border px-52 text-warning bg-gradient-to-l from-error rounded-2xl"
             >
-              <div className="mx-2 text-primary font-bold text-lg ">{title}</div>
-               Comming Soon!
+              <div className="space-y-1">
+                <div className="mx-2 text-primary text-3xl font-extrabold flex justify-center items-center">
+                  {title}
+                </div>
+                <div className="flex justify-center items-center">Comming Soon!</div>
+              </div>
             </motion.div>
           </ElectricBorder>
         </div>
