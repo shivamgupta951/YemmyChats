@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { X, ImagePlus } from "lucide-react";
+import { X, ImagePlus, Cookie } from "lucide-react";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../lib/axios";
 import { useAuthStore } from "../../store/useAuthStore";
 import TrueFocus from "../TrueFocus";
+import ElectricBorder from "../ElectricBorder";
 
 const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
   const { authUser } = useAuthStore();
@@ -40,7 +41,7 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
       toast.success("Post created");
       setTimeout(() => {
         window.location.reload();
-      }, 900); 
+      }, 900);
       onCreated(res.data.post);
       onClose();
     } catch (err) {
@@ -56,83 +57,92 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-2xl bg-base-100 rounded-xl shadow-xl border p-4"
+        className="w-full max-w-2xl bg-base-300/70 rounded-xl shadow-xl border "
       >
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold">Create Post</h3>
-          <button className="btn btn-ghost btn-sm" onClick={onClose}>
-            <X />
-          </button>
-        </div>
-
-        <textarea
-          value={caption}
-          onChange={(e) => setCaption(e.target.value)}
-          placeholder="Write a caption..."
-          className="textarea textarea-bordered w-full"
-          rows={3}
-        />
-
-        <div className="mt-3">
-          <label className="btn btn-outline btn-sm gap-2">
-            <ImagePlus />
-            Add media
-            <input
-              ref={inputRef}
-              multiple
-              accept="image/*,video/*"
-              type="file"
-              hidden
-              onChange={(e) => handleFiles(e.target.files)}
-            />
-          </label>
-
-          <div className="mt-3 grid grid-cols-4 gap-2">
-            {files.map((f, i) => {
-              const url = URL.createObjectURL(f);
-              return (
-                <div key={i} className="relative rounded overflow-hidden">
-                  <img
-                    src={url}
-                    alt={f.name}
-                    className="object-cover w-full h-24"
-                  />
-                  <button
-                    className="absolute top-1 right-1 btn btn-xs btn-circle btn-error"
-                    onClick={() => removeFile(i)}
-                    type="button"
-                  >
-                    ✕
-                  </button>
-                </div>
-              );
-            })}
+        <ElectricBorder>
+          <div className="flex items-center justify-between mb-3 p-4">
+            <h3 className="text-lg font-semibold">Create Post</h3>
+            <div className="flex justify-center items-center space-x-2">
+              <div className="text-sm flex justify-center items-center border p-1 rounded-xl bg-base-300 border-error px-3">
+                <Cookie className="text-primary mx-1" size={18} />
+                Yemmy Chats
+              </div>
+              <button className="btn btn-ghost btn-sm" onClick={onClose}>
+                <X />
+              </button>
+            </div>
           </div>
-        </div>
+          <div className="flex justify-center items-center">
+            <textarea
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              placeholder="Write a caption..."
+              className="textarea textarea-bordered w-[90%]"
+              rows={3}
+            />
+          </div>
 
-        <div className="flex justify-end gap-2 mt-4">
-          <button className="btn" onClick={onClose} disabled={uploading}>
-            Cancel
-          </button>
-          <button
-            className="btn btn-primary"
-            onClick={submit}
-            disabled={uploading}
-          >
-            {uploading ? (
-              <TrueFocus
-                sentence="Uploading post"
-                manualMode={false}
-                blurAmount={5}
-                borderColor="red"
-                animationDuration={2}
-                pauseBetweenAnimations={1}
+          <div className="mt-3 px-8">
+            <label className="btn btn-outline btn-sm gap-2 btn-primary">
+              <ImagePlus />
+              Add media
+              <input
+                ref={inputRef}
+                multiple
+                accept="image/*,video/*"
+                type="file"
+                hidden
+                onChange={(e) => handleFiles(e.target.files)}
               />
-            ) : (
-              "Post"
-            )}
-          </button>
-        </div>
+            </label>
+
+            <div className="mt-3 grid grid-cols-4 gap-2 px-2">
+              {files.map((f, i) => {
+                const url = URL.createObjectURL(f);
+                return (
+                  <div key={i} className="relative rounded overflow-hidden">
+                    <img
+                      src={url}
+                      alt={f.name}
+                      className="object-cover w-full h-24"
+                    />
+                    <button
+                      className="absolute top-1 right-1 btn btn-xs btn-circle btn-error"
+                      onClick={() => removeFile(i)}
+                      type="button"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-2 mt-4 p-4">
+            <button className="btn" onClick={onClose} disabled={uploading}>
+              Cancel
+            </button>
+            <button
+              className="btn btn-primary"
+              onClick={submit}
+              disabled={uploading}
+            >
+              {uploading ? (
+                <TrueFocus
+                  sentence="Uploading post"
+                  manualMode={false}
+                  blurAmount={5}
+                  borderColor="red"
+                  animationDuration={2}
+                  pauseBetweenAnimations={1}
+                />
+              ) : (
+                "Post"
+              )}
+            </button>
+          </div>
+        </ElectricBorder>
       </motion.div>
     </div>
   );
