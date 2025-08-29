@@ -6,6 +6,7 @@ import { axiosInstance } from "../../lib/axios";
 import { useAuthStore } from "../../store/useAuthStore";
 import TrueFocus from "../TrueFocus";
 import ElectricBorder from "../ElectricBorder";
+import YemmyChat_logo from "../../assets/YemmyChat_logo.png";
 
 const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
   const { authUser } = useAuthStore();
@@ -73,8 +74,13 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
                 }}
                 className="ring-2 cursor-pointer text-sm flex justify-center items-center border p-1 rounded-xl bg-base-300 border-error px-3"
               >
-                <Cookie className="text-primary mx-1" size={18} />
+                <Cookie size={20} className="mx-1"/>
                 Yemmy Chats
+                <img
+                  src={YemmyChat_logo}
+                  alt="Yemmy Chats Logo"
+                  className="size-6 mx-2 rounded-lg"
+                />{" "}
               </motion.div>
               <button className="btn btn-ghost btn-sm" onClick={onClose}>
                 <X />

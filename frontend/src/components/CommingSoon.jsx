@@ -14,18 +14,7 @@ const CommingSoon = ({ title }) => {
   return (
     <BackgroundBeamsWithCollision>
       <div className="min-h-screen flex justify-center items-center">
-        <div className="space-y-10">
-          <div className="flex justify-end items-center py-2">
-            <Button
-              borderRadius="1.5rem"
-              duration={3000}
-              onClick={NavigateHome}
-              className="btn btn-sm btn-accent flex gap-3"
-            >
-              <Home size={20} />
-              Back to Home
-            </Button>
-          </div>
+        <div className="mt-40">
           <ElectricBorder
             color="#7df9ff"
             speed={0.8}
@@ -51,10 +40,23 @@ const CommingSoon = ({ title }) => {
                 <div className="mx-2 text-base-content text-3xl font-extrabold flex justify-center items-center tracking-wide">
                   {title}
                 </div>
-                <div className="flex justify-center items-center font-semibold tracking-tighter">Comming Soon!</div>
+                <div className="flex justify-center items-center font-semibold tracking-tighter">
+                  Comming Soon!
+                </div>
               </div>
             </motion.div>
           </ElectricBorder>
+          <div className="flex justify-end items-center py-2 absolute bottom-0 right-10">
+            <Button
+              borderRadius="1.5rem"
+              duration={3000}
+              onClick={NavigateHome}
+              className="btn btn-sm btn-accent flex gap-3"
+            >
+              <Home size={20} />
+              Back to Home
+            </Button>
+          </div>
         </div>
       </div>
     </BackgroundBeamsWithCollision>

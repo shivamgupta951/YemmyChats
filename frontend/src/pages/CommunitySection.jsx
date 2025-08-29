@@ -1,14 +1,13 @@
-import { ArrowBigLeft, MoveLeft } from "lucide-react";
 import React from "react";
-import { Home } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import Lanyard from "../components/Lanyard";
 import CommingSoon from "../components/CommingSoon";
 const CommunitySection = () => {
-  const navigate = useNavigate();
   return (
-    <div>
-      <CommingSoon title="Community Section"/>
+    <div className="relative">
+      <CommingSoon title="Community Section" />
+      <div className="absolute bottom-20 w-full">
+        <Lanyard />
+      </div>
     </div>
   );
 };
