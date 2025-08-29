@@ -57,16 +57,25 @@ const CreatePost = ({ onClose = () => {}, onCreated = () => {} }) => {
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="w-full max-w-2xl bg-base-300/70 rounded-xl shadow-xl border "
+        className="w-full max-w-2xl bg-base-300/90 rounded-xl shadow-xl border "
       >
         <ElectricBorder>
           <div className="flex items-center justify-between mb-3 p-4">
             <h3 className="text-lg font-semibold">Create Post</h3>
             <div className="flex justify-center items-center space-x-2">
-              <div className="text-sm flex justify-center items-center border p-1 rounded-xl bg-base-300 border-error px-3">
+              <motion.div
+                initial={{ x: 0, y: 0 }}
+                animate={{ x: [0, -30, 0], y: [0, 0, 0] }}
+                transition={{
+                  duration: 7.5,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+                className="ring-2 cursor-pointer text-sm flex justify-center items-center border p-1 rounded-xl bg-base-300 border-error px-3"
+              >
                 <Cookie className="text-primary mx-1" size={18} />
                 Yemmy Chats
-              </div>
+              </motion.div>
               <button className="btn btn-ghost btn-sm" onClick={onClose}>
                 <X />
               </button>
